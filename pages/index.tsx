@@ -1,20 +1,21 @@
 import Link from 'next/link'
-// import Layout from '../components/Layout'
 import MainLayout from '../components/MainLayout'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
-const IndexPage = () => (
-  // <Layout title="Home | Next.js + TypeScript Example">
-  //   <h1>Hello Next.js 👋</h1>
-  //   <p>
-  //     <Link href="/about">About</Link>
-  //   </p>
-  // </Layout>
-  <MainLayout>
-    <h1>Hello Next.js 👋</h1>
-     <p>
-       <Link href="/about">About</Link>
-    </p>
-  </MainLayout>
-)
+const IndexPage = () => {
+  const router = useRouter()
+  useEffect(() => {
+    router.push('/overview')
+  }, []);
+  return (
+    <MainLayout>
+      <h1>Hello Next.js 👋</h1>
+      <p>
+        <Link href="/about">About</Link>
+      </p>
+    </MainLayout>
+  )
+}
 
 export default IndexPage
