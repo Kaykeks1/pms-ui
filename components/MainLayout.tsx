@@ -30,7 +30,9 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
           <h5 className='page-title'>{pageTitle}</h5>
           <span className='current-date'>Monday, 4th September</span>
         </div>
-        {children}
+        <div className='page-body'>
+          {children}
+        </div>
       </div>
     </div>
   </div>

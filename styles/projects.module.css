@@ -1,0 +1,28 @@
+.projects-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    background: #F1EEF6;
+    height: 500px;
+    width: 200px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.list-title {
+    
+}
+
+.list-item {
+    height: 80px;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    margin: 10px 0;
+}

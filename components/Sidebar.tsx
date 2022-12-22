@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 const Sidebar = () => {
   const router = useRouter();
   return (
-  <div className="flex flex-col w-1/5 border-r border-gray-200 h-screen py-10">
+  <div className="flex flex-col w-1/5 border-r border-gray-200 h-screen py-10 fixed">
     <div className="flex items-center mb-10">
         <Image
             className="object-cover w-12 h-12 ml-6 mr-4 rounded-full"
