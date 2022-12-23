@@ -1,0 +1,54 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.input-field label {
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+.input-field input {
+    border: 1px solid gray;
+    height: 50px;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
+/* .input-field input:focus {
+    border: 1px solid red;
+} */
+
+.submit-btn {
+    background-color: #5534A5;
+    height: 50px;
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+}
+
+.question {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.question a {
+    color: #C38FFB;
+}
