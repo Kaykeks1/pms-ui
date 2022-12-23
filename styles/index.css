@@ -15,6 +15,13 @@ body {
   box-sizing: border-box;
 }
 
+.auth {
+    background-image: url('../components/vector-10.svg'), url('../components/vector-9.svg');
+    background-repeat: no-repeat, no-repeat;
+    background-size: 100%, 100%;
+    background-position: 0 80%, 0 85%;
+}
+
 .page-container {
     width: 100%;
     padding: 0 30px 30px 30px;
