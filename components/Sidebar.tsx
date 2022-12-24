@@ -8,6 +8,10 @@ import { useRouter } from "next/router";
 
 const Sidebar = () => {
   const router = useRouter();
+  const logout = () => {
+    localStorage.clear();
+    router.push('/auth/signin')
+  }
   return (
   <div className="flex flex-col w-1/6 border-r border-gray-200 h-screen py-10 fixed">
     <div className="flex items-center mb-10">
@@ -45,7 +49,7 @@ const Sidebar = () => {
             </Link>
         </div>
         <div className="flex flex-col">
-            <div className="flex py-1 my-2 h-12 ml-8 w-full group cursor-pointer">
+            <div className="flex py-1 my-2 h-12 ml-8 w-full group cursor-pointer" onClick={logout}>
                 <FontAwesomeIcon icon={faSignOutAlt} className="text-violet-400 group-hover:text-violet-600 self-center mr-3" />
                 <p className="text-gray-500 group-hover:text-violet-600 self-center">Logout</p>
             </div>

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 const IndexPage = () => {
   const router = useRouter()
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem("authenticated")
+    const isAuthenticated = localStorage.getItem("token")
     if (isAuthenticated) {
       router.push('/overview')
     } else {
