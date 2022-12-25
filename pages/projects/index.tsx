@@ -1,45 +1,50 @@
 import MainLayout from '../../components/MainLayout';
+import Modal from '../../components/Modal';
 import styles from '../../styles/projects.module.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 const Projects = () => {
   const intialProjectLists = [
     {
       title: 'Not Started',
       items: [
-        { id: '01', description: '01'},
-        { id: '02', description: '02'},
-        { id: '03', description: '03'},
-        { id: '04', description: '04'}
+        { id: '01', title: '01'},
+        { id: '02', title: '02'},
+        { id: '03', title: '03'},
+        { id: '04', title: '04'}
       ]
     },
     {
       title: 'Started',
-      items: [{ id: '11', description: '11'}]
+      items: [{ id: '11', title: '11'}]
     },
     {
       title: 'Delayed',
-      items: [{ id: '22', description: '22'}]
+      items: [{ id: '22', title: '22'}]
     },
     {
       title: 'Completed',
-      items: [{ id: '33', description: '33'}]
+      items: [{ id: '33', title: '33'}]
     },
     {
       title: 'On Hold',
-      items: [{ id: '44', description: '44'}]
+      items: [{ id: '44', title: '44'}]
     },
   ]
   interface DraggedTask {
     from: string
     item: {
       id: string;
-      description: string;
+      title: string;
     };
   }
   const [projectLists, setProjectLists] = useState(intialProjectLists);
-  const [draggedTask, setDraggedTask] = useState<DraggedTask>({ from: '', item: { id: '', description: '' } });
-  // const [draggedTask, setDraggedTask] = useState({ from: '', item: { id: '', description: '' } });
+  const [draggedTask, setDraggedTask] = useState<DraggedTask>({ from: '', item: { id: '', title: '' } });
+  // const [draggedTask, setDraggedTask] = useState({ from: '', item: { id: '', title: '' } });
+  const ref = useRef() as any;
   const onDrag = (event, project, listTitle) => {
     event.preventDefault();
     setDraggedTask({ from: listTitle, item: project });
@@ -66,22 +71,47 @@ const Projects = () => {
       return project
     })
     setProjectLists(newProjectLists)
-    setDraggedTask({ from: '', item: { id: '', description: '' } });
+    setDraggedTask({ from: '', item: { id: '', title: '' } });
   }  
+  const openModal = () => {
+    ref.current.open()
+  }
   return(
     <MainLayout title="Projects" pageTitle="Projects">
-      <h1>Projects</h1>
+      <Modal title='Title' ref={ref}>
+        This is a random text
+      </Modal>
+      <h1 className={styles["title-text"]}>Scrum Board</h1>
+      <p className={styles["sub-text"]}>Scrum boards are visual project management tools that help Scrum teams visualize backlog items and work progress. This helps you track individual sprints and help team members visualize their progress.</p>
       <div className={styles["projects-container"]}>
         {
           projectLists.map((item, key1) => (
           <div  key={key1} className={styles["projects-list"]} onDrop={event => onDrop(event, item.title)} onDragOver={(event => onDragOver(event))}>
-            <div>
+            <div className={styles["list-head"]}>
               <h1 className={styles["list-title"]}>{item.title}</h1>
-              <div className={styles[""]}></div>
+              {
+                (key1 === 0) && <div onClick={openModal}>Create <FontAwesomeIcon icon={faPlus} className='text-white ml-2' /></div>
+              }
             </div>
             {
               item.items.map((project, key2) => (
-                <div key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>{project.description}</div>
+                <div key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>
+                  <div className={styles['list-item-head']}>
+                    <p>Project {project.title}</p>
+                    <div className='effort medium-effort'>Medium</div>
+                  </div>
+                  <div className={styles['list-item-body']}>
+                    {/* <div>
+                      <p>Effort: </p><p>Large</p>
+                    </div> */}
+                    <div>
+                      <p>No of tasks: </p><p>5</p>
+                    </div>
+                    <div>
+                      <p>Due date: </p><p>12/12/2022</p>
+                    </div>
+                  </div>
+                </div>
               ))
             }
           </div>

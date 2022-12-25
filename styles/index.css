@@ -34,7 +34,7 @@ body {
     align-items: center;
     width: 100%;
     position: fixed;
-    height: 70px;
+    height: 100px;
     background-color: white;
 }
 
@@ -55,5 +55,18 @@ body {
 }
 
 .page-body {
-    margin-top: 70px;
+    margin-top: 100px;
+}
+
+.effort {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    border-radius: 14px;
+    padding: 5px 10px;
+}
+
+.medium-effort {
+    color: #FFFFFF;
+    background-color: #67CB65;
 }
