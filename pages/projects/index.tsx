@@ -1,8 +1,9 @@
 import MainLayout from '../../components/MainLayout';
 import Modal from '../../components/Modal';
+import ProjectDetails from '../../components/ProjectDetails';
 import styles from '../../styles/projects.module.css';
 import { useState, useRef } from 'react';
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTimes, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
@@ -43,6 +44,8 @@ const Projects = () => {
   }
   const [projectLists, setProjectLists] = useState(intialProjectLists);
   const [draggedTask, setDraggedTask] = useState<DraggedTask>({ from: '', item: { id: '', title: '' } });
+  const [showCreateInput, toggleCreateInput] = useState(false);
+  const [newProjectTitle, setNewProjectTitle] = useState('');
   // const [draggedTask, setDraggedTask] = useState({ from: '', item: { id: '', title: '' } });
   const ref = useRef() as any;
   const onDrag = (event, project, listTitle) => {
@@ -76,10 +79,13 @@ const Projects = () => {
   const openModal = () => {
     ref.current.open()
   }
+  const createProject = () => {
+    toggleCreateInput(false)
+  }
   return(
     <MainLayout title="Projects" pageTitle="Projects">
       <Modal title='Title' ref={ref}>
-        This is a random text
+        <ProjectDetails />
       </Modal>
       <h1 className={styles["title-text"]}>Scrum Board</h1>
       <p className={styles["sub-text"]}>Scrum boards are visual project management tools that help Scrum teams visualize backlog items and work progress. This helps you track individual sprints and help team members visualize their progress.</p>
@@ -90,12 +96,19 @@ const Projects = () => {
             <div className={styles["list-head"]}>
               <h1 className={styles["list-title"]}>{item.title}</h1>
               {
-                (key1 === 0) && <div onClick={openModal}>Create <FontAwesomeIcon icon={faPlus} className='text-white ml-2' /></div>
+                (key1 === 0) && <div className='cursor-pointer' onClick={() => toggleCreateInput(!showCreateInput)} style={{ backgroundColor: showCreateInput ? 'red' : '#5534A5' }}>{showCreateInput ? 'Close' : 'Create'} <FontAwesomeIcon icon={showCreateInput ? faTimes : faPlus} className='text-white ml-2' /></div>
               }
             </div>
             {
+              (key1 === 0 && showCreateInput)
+                && <div className={styles['create-input-container']}>
+                  <input type="text" name="newProjectTitle" placeholder='Project Title' value={newProjectTitle} onChange={event => setNewProjectTitle(event.target.value)} />
+                  <FontAwesomeIcon icon={faSave} className='cursor-pointer text-green ml-2' onClick={createProject} />
+                </div>
+            }
+            {
               item.items.map((project, key2) => (
-                <div key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>
+                <div onClick={openModal} key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>
                   <div className={styles['list-item-head']}>
                     <p>Project {project.title}</p>
                     <div className='effort medium-effort'>Medium</div>

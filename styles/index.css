@@ -70,3 +70,13 @@ body {
     color: #FFFFFF;
     background-color: #67CB65;
 }
+
+td, th {
+  border: 1px solid #F1EEF6;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #F1EEF6;
+}
