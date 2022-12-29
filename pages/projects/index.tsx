@@ -6,6 +6,24 @@ import { useState, useRef } from 'react';
 import { faPlus, faTimes, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+// export const getServerSideProps = async (context) => {
+//   try {
+//     const token = context.req.cookies['token']
+//     const user = context.req.cookies['user']
+//     const organization_id = user && JSON.parse(user).organizations[0].id
+//     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+//     const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/project/all`)
+//     const data = response.data
+//     console.log({data})
+  
+//     return {
+//       props: { projects: data }
+//     }
+//   } catch(e) {
+//     console.log({e})
+//     return { props: {}}
+//   }
+// }
 
 const Projects = () => {
   const intialProjectLists = [

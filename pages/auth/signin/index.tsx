@@ -4,6 +4,7 @@ import styles from '../../../styles/auth.module.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import Cookies from 'universal-cookie';
 
 const Signin = () => {
     const [form, setForm] = useState({ email: '', password: '' });
@@ -27,6 +28,9 @@ const Signin = () => {
             router.push('/')
             localStorage.setItem('token', data.token)
             localStorage.setItem('user', JSON.stringify(data.user))
+            const cookies = new Cookies();
+            cookies.set('token', data.token, { path: '/' });
+            cookies.set('user', JSON.stringify(data.user), { path: '/' });
         } catch (error) {
             console.log(error)
         }
