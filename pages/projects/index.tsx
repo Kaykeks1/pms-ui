@@ -2,9 +2,11 @@ import MainLayout from '../../components/MainLayout';
 import Modal from '../../components/Modal';
 import ProjectDetails from '../../components/ProjectDetails';
 import styles from '../../styles/projects.module.css';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { faPlus, faTimes, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios';
+import formatDate from '../../utils/formatDate';
 
 // export const getServerSideProps = async (context) => {
 //   try {
@@ -26,33 +28,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // }
 
 const Projects = () => {
-  const intialProjectLists = [
-    {
-      title: 'Not Started',
-      items: [
-        { id: '01', title: '01'},
-        { id: '02', title: '02'},
-        { id: '03', title: '03'},
-        { id: '04', title: '04'}
-      ]
-    },
-    {
-      title: 'Started',
-      items: [{ id: '11', title: '11'}]
-    },
-    {
-      title: 'Delayed',
-      items: [{ id: '22', title: '22'}]
-    },
-    {
-      title: 'Completed',
-      items: [{ id: '33', title: '33'}]
-    },
-    {
-      title: 'On Hold',
-      items: [{ id: '44', title: '44'}]
-    },
-  ]
+  const statusOptions = [
+    { label: 'Not Started', value: 'not_started' },
+    { label: 'Started', value: 'started' },
+    { label: 'Delayed', value: 'delayed' },
+    { label: 'Completed', value: 'completed' },
+    { label: 'On Hold', value: 'on_hold' },
+  ];
+  const priorityOptions = {
+    nice: 'Nice',
+    low: 'Low',
+    medium: 'Medium',
+    high: 'High',
+    critical: 'Critical'
+  }
+  const effortOptions = {
+    small: 'Small',
+    medium: 'Medium',
+    large: 'Large'
+  }
+  const [projects, setProjectsFromAPI] = useState([]);
+  const intialProjectLists = statusOptions.map(i => ({ title: i.label, items: projects.filter(project => project.status === i.value) }))
   interface DraggedTask {
     from: string
     item: {
@@ -66,6 +62,12 @@ const Projects = () => {
   const [newProjectTitle, setNewProjectTitle] = useState('');
   // const [draggedTask, setDraggedTask] = useState({ from: '', item: { id: '', title: '' } });
   const ref = useRef() as any;
+  useEffect(() => {
+    fetchProjects()
+  }, [])
+  useEffect(() => {
+      setProjectLists(intialProjectLists)
+  }, [projects])
   const onDrag = (event, project, listTitle) => {
     event.preventDefault();
     setDraggedTask({ from: listTitle, item: project });
@@ -73,8 +75,12 @@ const Projects = () => {
   const onDragOver = (event) => {
     event.preventDefault();
   }
-  const onDrop = (event, toListTitle) => {
+  const onDrop = async (event, toListTitle) => {
     const fromListTitle = draggedTask.from;
+    if (toListTitle === fromListTitle) return;
+    const projectSlug = statusOptions.find(i => i.label === toListTitle)
+    const updateSuccessful = await updateStatus(draggedTask.item.id, projectSlug.value);
+    if (!updateSuccessful) return;
     const newProjectLists = projectLists.map(project => {
       if (toListTitle === fromListTitle) return project
       if (project.title === toListTitle) {
@@ -97,8 +103,57 @@ const Projects = () => {
   const openModal = () => {
     ref.current.open()
   }
-  const createProject = () => {
+  const createProject = async () => {
+    if (!newProjectTitle) return
     toggleCreateInput(false)
+    await addProject()
+    setNewProjectTitle('')
+    await fetchProjects()
+  }
+  const updateStatus = async (project_id, status) => {
+    try {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      const organization_id = user && JSON.parse(user).organizations[0].id
+      const payload = { status }
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const response = await axios.patch(`http://127.0.0.1:3001/organization/${organization_id}/project/edit/${project_id}`, payload)
+      const data = response.data
+      // console.log({ update: data })
+      return true
+    } catch (e) {
+      console.log({e})
+      return false
+    }
+  }
+
+  const addProject = async () =>  {
+    try {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      const organization_id = user && JSON.parse(user).organizations[0].id
+      const payload = { title: newProjectTitle }
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const response = await axios.post(`http://127.0.0.1:3001/organization/${organization_id}/project/create`, payload)
+      const data = response.data
+      // console.log({ update: data })
+    } catch (e) {
+      console.log({ e })
+    }
+  }
+  const fetchProjects = async () => {
+    try {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      const organization_id = user && JSON.parse(user).organizations[0].id
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/project/all`)
+      const data = response.data
+      // console.log({data})
+      setProjectsFromAPI(data)
+    } catch (e) {
+      console.log({ e })
+    }
   }
   return(
     <MainLayout title="Projects" pageTitle="Projects">
@@ -128,18 +183,18 @@ const Projects = () => {
               item.items.map((project, key2) => (
                 <div onClick={openModal} key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>
                   <div className={styles['list-item-head']}>
-                    <p>Project {project.title}</p>
-                    <div className='effort medium-effort'>Medium</div>
+                    <p>{project.title}</p>
+                    <div className={`priority ${project.priority}-priority`}>{project.priority ? priorityOptions[project.priority] : '--'}</div>
                   </div>
                   <div className={styles['list-item-body']}>
-                    {/* <div>
-                      <p>Effort: </p><p>Large</p>
-                    </div> */}
                     <div>
-                      <p>No of tasks: </p><p>5</p>
+                      <p>Effort: </p><p>{project.effort ? effortOptions[project.effort] : '--'}</p>
                     </div>
                     <div>
-                      <p>Due date: </p><p>12/12/2022</p>
+                      <p>No of tasks: </p><p>{project.no_of_tasks ? project.no_of_tasks : '--'}</p>
+                    </div>
+                    <div>
+                      <p>Due date: </p><p>{project.deadline ? formatDate.normal(project.deadline) : '--'}</p>
                     </div>
                   </div>
                 </div>
