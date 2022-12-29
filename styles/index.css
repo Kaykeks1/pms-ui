@@ -58,7 +58,7 @@ body {
     margin-top: 100px;
 }
 
-.effort {
+.priority {
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
@@ -66,7 +66,7 @@ body {
     padding: 5px 10px;
 }
 
-.medium-effort {
+.medium-priority {
     color: #FFFFFF;
     background-color: #67CB65;
 }
