@@ -36,7 +36,7 @@ const Modal = forwardRef(({ children, title }: Props, ref) => {
     return (
         <div id="myModal" className="hidden fixed z-1 py-24 top-0 left-0 w-full h-full overflow-auto" style={{backgroundColor: 'rgba(0,0,0,0.4)'}}>
         
-            <div className="bg-white m-auto p-5 border-1 border-black w-2/5 max-h-full overflow-auto">
+            <div className="bg-white m-auto p-5 border-1 border-black w-2/5 max-h-full overflow-auto rounded-xl">
                 {children}
             </div>
         
