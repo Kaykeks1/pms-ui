@@ -8,25 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 import formatDate from '../../utils/formatDate';
 
-// export const getServerSideProps = async (context) => {
-//   try {
-//     const token = context.req.cookies['token']
-//     const user = context.req.cookies['user']
-//     const organization_id = user && JSON.parse(user).organizations[0].id
-//     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-//     const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/project/all`)
-//     const data = response.data
-//     console.log({data})
-  
-//     return {
-//       props: { projects: data }
-//     }
-//   } catch(e) {
-//     console.log({e})
-//     return { props: {}}
-//   }
-// }
-
 const Projects = () => {
   const statusOptions = [
     { label: 'Not Started', value: 'not_started' },
@@ -62,6 +43,8 @@ const Projects = () => {
   const [newProjectTitle, setNewProjectTitle] = useState('');
   // const [draggedTask, setDraggedTask] = useState({ from: '', item: { id: '', title: '' } });
   const ref = useRef() as any;
+  let ref1 = Object.assign({}, ref)
+  let ref2 = Object.assign({}, ref)
   useEffect(() => {
     fetchProjects()
   }, [])
@@ -100,8 +83,9 @@ const Projects = () => {
     setProjectLists(newProjectLists)
     setDraggedTask({ from: '', item: { id: '', title: '' } });
   }  
-  const openModal = () => {
-    ref.current.open()
+  const openModal = (projectId) => {
+    ref1.current.open()
+    ref2.current.open2(projectId)
   }
   const createProject = async () => {
     if (!newProjectTitle) return
@@ -136,7 +120,6 @@ const Projects = () => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       const response = await axios.post(`http://127.0.0.1:3001/organization/${organization_id}/project/create`, payload)
       const data = response.data
-      // console.log({ update: data })
     } catch (e) {
       console.log({ e })
     }
@@ -149,7 +132,6 @@ const Projects = () => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/project/all`)
       const data = response.data
-      // console.log({data})
       setProjectsFromAPI(data)
     } catch (e) {
       console.log({ e })
@@ -157,8 +139,8 @@ const Projects = () => {
   }
   return(
     <MainLayout title="Projects" pageTitle="Projects">
-      <Modal title='Title' ref={ref}>
-        <ProjectDetails />
+      <Modal title='Title' ref={ref1}>
+        <ProjectDetails ref={ref2} />
       </Modal>
       <h1 className={styles["title-text"]}>Scrum Board</h1>
       <p className={styles["sub-text"]}>Scrum boards are visual project management tools that help Scrum teams visualize backlog items and work progress. This helps you track individual sprints and help team members visualize their progress.</p>
@@ -181,7 +163,7 @@ const Projects = () => {
             }
             {
               item.items.map((project, key2) => (
-                <div onClick={openModal} key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>
+                <div onClick={() => openModal(project.id)} key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>
                   <div className={styles['list-item-head']}>
                     <p>{project.title}</p>
                     <div className={`priority ${project.priority}-priority`}>{project.priority ? priorityOptions[project.priority] : '--'}</div>
