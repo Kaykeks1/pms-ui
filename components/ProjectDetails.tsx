@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
-import { faAlignLeft, faClock, faDumbbell, faExclamationTriangle, faTrafficLight, faTasks, faPlus, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faClock, faDumbbell, faExclamationTriangle, faTrafficLight, faTasks, faPlus, faSave, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import formatDate from '../utils/formatDate';
 import axios from 'axios';
@@ -126,6 +126,16 @@ const ProjectDetails = forwardRef(({  }, ref) => {
             due_date: '',
             is_completed: '',
         });
+    }
+    const deleteTask = (key) => {
+        console.log({key})
+        setProjectDetails({
+            ...projectDetails,
+            tasks: [
+                ...projectDetails.tasks.slice(0, key),
+                ...projectDetails.tasks.slice(key + 1, projectDetails.tasks.length)
+            ]
+        })
     }
     const getProject = async (project_id) => {
         try {
@@ -290,6 +300,7 @@ const ProjectDetails = forwardRef(({  }, ref) => {
                                 <th>Due date</th>
                                 <th>Status</th>
                                 <th>Description</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -305,6 +316,12 @@ const ProjectDetails = forwardRef(({  }, ref) => {
                                             </select>
                                         </td>
                                         <td><input className="focus:outline-0 bg-transparent w-full" type="text" name="description" placeholder='Empty' value={item.description} onChange={event => handleTasksDetailsChange(event, key)} /></td>
+                                        <td>
+                                            <button className='p-1 border-solid border-red-600 text-red-600 border-2 rounded-md self-end' onClick={() => deleteTask(key)}>
+                                                Delete
+                                                <FontAwesomeIcon icon={faTrashAlt} className='text-red-600 ml-2' />
+                                            </button>
+                                        </td>
                                     </tr>
                                 )
                             }
