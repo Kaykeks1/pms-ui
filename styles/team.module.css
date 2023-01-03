@@ -1,0 +1,62 @@
+.top-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* margin-top: 20px; */
+}
+
+.title-text {
+    margin: 10px 0;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+.sub-text {
+    margin: 10px 0;
+    color: #6C6C6C;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* width: 40%; */
+}
+
+.btn-sction {
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.create-btn {
+    border: 1px solid rgba(124, 58, 237);
+    color: white;
+    color: rgba(124, 58, 237);
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.team-list {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.list-item {
+    display: flex;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #a9a9a9;
+    padding: 10px 15px;
+}
+
+.list-item-detail {
+    padding: 5px;
+}
+
+.list-item-detail div {
+    color: #6C6C6C;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+}
