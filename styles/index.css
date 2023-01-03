@@ -32,9 +32,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 80%;
     position: fixed;
-    height: 100px;
+    /* height: 100px; */
+    padding: 25px 0px;
     background-color: white;
 }
 
