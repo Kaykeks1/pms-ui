@@ -1,4 +1,4 @@
-import AuthLayout from '../../../components/AuthLayout';
+import AuthLayout from '../../../components/layouts/AuthLayout';
 import Link from 'next/link'
 import styles from '../../../styles/auth.module.css';
 import { useState } from 'react';

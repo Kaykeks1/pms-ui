@@ -1,6 +1,6 @@
-import MainLayout from '../../components/MainLayout';
-import Modal from '../../components/Modal';
-import ProjectDetails from '../../components/ProjectDetails';
+import MainLayout from '../../components/layouts/MainLayout';
+import Modal from '../../components/modals/Modal';
+import ProjectDetails from '../../components/modals/ProjectDetails';
 import styles from '../../styles/projects.module.css';
 import { useState, useRef, useEffect } from 'react';
 import { faPlus, faTimes, faSave } from '@fortawesome/free-solid-svg-icons'

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faThLarge, faUsers, faTasks, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import Image from 'next/image'
-import profilePic from './gear.png'
+import profilePic from '../../images/gear.png'
 // import profilePic from './growth.png'
 import { useRouter } from "next/router";
 
