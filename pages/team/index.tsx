@@ -4,17 +4,57 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/team.module.css';
 import Modal from '../../components/Modal';
 import CreateTeamMember from '../../components/CreateTeamMember';
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
+import axios from 'axios';
+import formatDate from '../../utils/formatDate';
 
 const Team = () => {
+  const [team, setTeam] = useState([])
+  useEffect(() => {
+    fetchTeam()
+  }, [])
   const ref = useRef() as any;
+  let ref1 = Object.assign({}, ref)
+  let ref2 = Object.assign({}, ref)
   const openModal = () => {
-    ref.current.open()
+    ref1.current.open()
+    ref2.current.open2()
+  }
+  const fetchTeam = async () => {
+    try {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      const organization_id = user && JSON.parse(user).organizations[0].id
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/team/all`)
+      const data = response.data
+      setTeam(data)
+    } catch (e) {
+      console.log({ e })
+    }
+  }
+  const triggerCreateMember = async (payload) => {
+    await addMember(payload)
+    ref1.current.close()
+    await fetchTeam()
+  }
+  const addMember = async (payload) =>  {
+    try {
+      console.log({payload})
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      const organization_id = user && JSON.parse(user).organizations[0].id
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const response = await axios.post(`http://127.0.0.1:3001/organization/${organization_id}/team/create`, payload)
+      const data = response.data
+    } catch (e) {
+      console.log({ e })
+    }
   }
   return (
     <MainLayout title="Team" pageTitle="Team">
-      <Modal title='Title' ref={ref}>
-        <CreateTeamMember />
+      <Modal title='Title' ref={ref1}>
+        <CreateTeamMember ref={ref2} onCreateMember={triggerCreateMember} />
       </Modal>
       <div className={styles["top-section"]}>
         <div className={styles["sub-text"]}>Here is the list of all team members that can be assigned to a project. Click on the button on the top right to create a new team member.</div>
@@ -24,42 +64,42 @@ const Team = () => {
       </div>
       <div className={styles['team-list']}>
         {
-          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0].map(i =>
-            <div className={styles['list-item']}>
+          team.map((item, key) =>
+            <div key={key} className={styles['list-item']}>
               <div className={styles['list-item-detail']}>
                 <div>
                   <FontAwesomeIcon icon={faUser} className='mr-2' />
                   First name
                 </div>
-                <p>John</p>
+                <p>{item.firstName}</p>
               </div>
               <div className={styles['list-item-detail']}>
                 <div>
                   <FontAwesomeIcon icon={faUser} className='mr-2' />
                   Last name
                 </div>
-                <p>John</p>
+                <p>{item.lastName}</p>
               </div>
               <div className={styles['list-item-detail']}>
                 <div>
                   <FontAwesomeIcon icon={faTag} className='mr-2' />
                   Role
                 </div>
-                <p>Developer</p>
+                <p>{item.role && `${item.role[0].toUpperCase()}${item.role.slice(1,item.role.length)}`}</p>
               </div>
               <div className={styles['list-item-detail']}>
                 <div>
                   <FontAwesomeIcon icon={faTasks} className='mr-2' />
                   No. of tasks
                 </div>
-                <p>5</p>
+                <p>{item.no_of_tasks}</p>
               </div>
               <div className={styles['list-item-detail']}>
                 <div>
                   <FontAwesomeIcon icon={faClock} className='mr-2' />
                   Created at
                 </div>
-                <p>10/10/2002</p>
+                <p>{formatDate.normal3(item.createdAt)}</p>
               </div>
             </div>
           )
