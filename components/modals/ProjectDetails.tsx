@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
 import { faAlignLeft, faClock, faDumbbell, faExclamationTriangle, faTrafficLight, faTasks, faPlus, faSave, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import formatDate from '../utils/formatDate';
+import formatDate from '../../utils/formatDate';
 import axios from 'axios';
 import { isEqual, isEmpty } from 'lodash';
 

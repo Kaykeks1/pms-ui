@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 import profilePic from './growth.png'
-import Sidebar from './Sidebar'
+import Sidebar from '../sidebar/Sidebar'
 
 type Props = {
   children?: ReactNode

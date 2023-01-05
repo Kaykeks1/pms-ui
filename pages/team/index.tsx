@@ -1,9 +1,9 @@
-import MainLayout from '../../components/MainLayout';
+import MainLayout from '../../components/layouts/MainLayout';
 import { faUser, faTag, faTasks, faClock, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/team.module.css';
-import Modal from '../../components/Modal';
-import CreateTeamMember from '../../components/CreateTeamMember';
+import Modal from '../../components/modals/Modal';
+import CreateTeamMember from '../../components/modals/CreateTeamMember';
 import { useRef, useEffect, useState } from 'react'
 import axios from 'axios';
 import formatDate from '../../utils/formatDate';

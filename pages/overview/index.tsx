@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { User } from '../../interfaces'
 import { sampleUserData } from '../../utils/sample-data'
-import MainLayout from '../../components/MainLayout'
+import MainLayout from '../../components/layouts/MainLayout'
 import List from '../../components/List'
 
 // type Props = {
