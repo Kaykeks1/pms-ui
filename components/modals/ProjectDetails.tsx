@@ -36,8 +36,6 @@ const ProjectDetails = forwardRef(({  }, ref) => {
                 due_date: '',
                 is_completed: '',
             });
-            // checkForChange()
-            console.log('open 2: ', projectId)
         },
     }));
     const priorityOptions = [
@@ -128,7 +126,6 @@ const ProjectDetails = forwardRef(({  }, ref) => {
         });
     }
     const deleteTask = (key) => {
-        console.log({key})
         setProjectDetails({
             ...projectDetails,
             tasks: [

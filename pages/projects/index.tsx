@@ -103,7 +103,6 @@ const Projects = () => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       const response = await axios.patch(`http://127.0.0.1:3001/organization/${organization_id}/project/edit/${project_id}`, payload)
       const data = response.data
-      // console.log({ update: data })
       return true
     } catch (e) {
       console.log({e})

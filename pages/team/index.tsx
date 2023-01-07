@@ -40,7 +40,6 @@ const Team = () => {
   }
   const addMember = async (payload) =>  {
     try {
-      console.log({payload})
       const user = localStorage.getItem('user');
       const token = localStorage.getItem('token');
       const organization_id = user && JSON.parse(user).organizations[0].id
