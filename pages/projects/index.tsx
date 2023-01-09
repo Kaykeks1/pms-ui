@@ -1,9 +1,10 @@
 import MainLayout from '../../components/layouts/MainLayout';
 import Modal from '../../components/modals/Modal';
 import ProjectDetails from '../../components/modals/ProjectDetails';
+import ManageTeam from '../../components/modals/ManageTeam';
 import styles from '../../styles/projects.module.css';
 import { useState, useRef, useEffect } from 'react';
-import { faPlus, faTimes, faSave } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTimes, faSave, faUserCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 import formatDate from '../../utils/formatDate';
@@ -45,6 +46,8 @@ const Projects = () => {
   const ref = useRef() as any;
   let ref1 = Object.assign({}, ref)
   let ref2 = Object.assign({}, ref)
+  let ref3 = Object.assign({}, ref)
+  let ref4 = Object.assign({}, ref)
   useEffect(() => {
     fetchProjects()
   }, [])
@@ -136,10 +139,18 @@ const Projects = () => {
       console.log({ e })
     }
   }
+  const openTeamModal = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    ref3.current.open()
+    ref4.current.open2(1)
+  }
   return(
     <MainLayout title="Projects" pageTitle="Projects">
-      <Modal title='Title' ref={ref1}>
+      <Modal name='Details' ref={ref1} key={1}>
         <ProjectDetails ref={ref2} />
+      </Modal>
+      <Modal name='Team' ref={ref3} key={2}>
+        <ManageTeam ref={ref4} />
       </Modal>
       <h1 className={styles["title-text"]}>Scrum Board</h1>
       <p className={styles["sub-text"]}>Scrum boards are visual project management tools that help Scrum teams visualize backlog items and work progress. This helps you track individual sprints and help team members visualize their progress.</p>
@@ -164,6 +175,7 @@ const Projects = () => {
               item.items.map((project, key2) => (
                 <div onClick={() => openModal(project.id)} key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>
                   <div className={styles['list-item-head']}>
+                    <FontAwesomeIcon icon={faUserCog} className='cursor-pointer text-green' onClick={(e) => openTeamModal(e)} />
                     <p>{project.title}</p>
                     <div className={`priority ${project.priority}-priority`}>{project.priority ? priorityOptions[project.priority] : '--'}</div>
                   </div>
