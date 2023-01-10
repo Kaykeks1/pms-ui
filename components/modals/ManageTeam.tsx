@@ -10,6 +10,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
     
     useImperativeHandle(ref, () => ({
         async open2(projectId) {
+            await getTasks(projectId)
             setSaveStatus(false)
         },
     }));
@@ -25,6 +26,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
     //     }
     // }
     const [saveStatus, setSaveStatus] = useState(false);
+    const [tasks, setTasks] = useState([]);
     const [team, setTeam] = useState([]);
     const [members, setMembers] = useState([]);
     const handleMemberSelection = (item) => {
@@ -37,6 +39,19 @@ const ManageTeam = forwardRef(({ }, ref) => {
                 ...members.slice(0, index),
                 ...members.slice(index + 1, members.length),
             ])
+    }
+    const getTasks = async (project_id) => {
+        try {
+            const user = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
+            const organization_id = user && JSON.parse(user).organizations[0].id
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/task/project/${project_id}`)
+            const data = response.data
+            setTasks(data)
+        } catch (e) {
+            console.log({ e })
+        }
     }
     const fetchTeam = async () => {
         try {
@@ -62,7 +77,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
             </div>
             <div className='flex flex-col'>
                 {
-                    [1, 1].map((i,k) => (
+                    tasks.map((item,k) => (
                         <div key={k} className="flex flex-wrap mb-2 border-t-2 px-3 py-5">
                             <div className="flex flex-col w-2/4 mb-3">
                                 <div className='flex items-center'>
@@ -70,7 +85,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     <p className="text-gray-600 text-sm font-bold">Due date</p>
                                 </div>
                                 <div>
-                                    Test
+                                    {formatDate.normal3(item.due_date)}
                                 </div>
                             </div>
                             <div className="flex flex-col w-2/4 mb-3">
@@ -79,7 +94,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     <p className="text-gray-600 text-sm font-bold">Status</p>
                                 </div>
                                 <div>
-                                    Test
+                                    {item.is_completed ? 'Completed' : 'Not completed'}
                                 </div>
                             </div>
                             <div className="flex flex-col w-2/4 mb-3">
@@ -88,7 +103,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     <p className="text-gray-600 text-sm font-bold">Description</p>
                                 </div>
                                 <div>
-                                    Test
+                                    {item.description}
                                 </div>
                             </div>
                             <div className="flex flex-col w-2/4 mb-3">

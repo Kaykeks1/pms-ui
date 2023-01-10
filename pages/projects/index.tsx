@@ -139,10 +139,10 @@ const Projects = () => {
       console.log({ e })
     }
   }
-  const openTeamModal = (e) => {
+  const openTeamModal = (e, projectId) => {
     if (e && e.stopPropagation) e.stopPropagation();
     ref3.current.open()
-    ref4.current.open2(1)
+    ref4.current.open2(projectId)
   }
   return(
     <MainLayout title="Projects" pageTitle="Projects">
@@ -175,7 +175,7 @@ const Projects = () => {
               item.items.map((project, key2) => (
                 <div onClick={() => openModal(project.id)} key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>
                   <div className={styles['list-item-head']}>
-                    <FontAwesomeIcon icon={faUserCog} className='cursor-pointer text-green' onClick={(e) => openTeamModal(e)} />
+                    <FontAwesomeIcon icon={faUserCog} className='cursor-pointer text-green' onClick={(e) => openTeamModal(e, project.id)} />
                     <p>{project.title}</p>
                     <div className={`priority ${project.priority}-priority`}>{project.priority ? priorityOptions[project.priority] : '--'}</div>
                   </div>
