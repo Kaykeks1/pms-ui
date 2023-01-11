@@ -11,7 +11,8 @@ const ManageTeam = forwardRef(({ }, ref) => {
     useImperativeHandle(ref, () => ({
         async open2(projectId) {
             await getTasks(projectId)
-            setSaveStatus(false)
+            // setSaveStatus(false)
+            setSaveStatus(true)
         },
     }));
     useEffect(() => {
@@ -28,16 +29,33 @@ const ManageTeam = forwardRef(({ }, ref) => {
     const [saveStatus, setSaveStatus] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [team, setTeam] = useState([]);
-    const [members, setMembers] = useState([]);
-    const handleMemberSelection = (item) => {
-        // console.log({item})
-        // Todo: set item.value to task form
-        setMembers([...members, item])
+    const handleMemberSelection = (item, taskIdx) => {
+        // todo: Make multi select list homogenous (i.e. like a set). Do this is in the multiselect component
+        const taskItem = tasks[taskIdx]
+        setTasks([
+            ...tasks.slice(0, taskIdx),
+            {
+                ...taskItem,
+                teamMembers: [
+                    ...taskItem.teamMembers,
+                    { id: item.value, name: item.label },
+                ]
+            },
+            ...tasks.slice(taskIdx + 1, tasks.length),
+        ])
     }
-    const handleMemberRemoval = (index) => {
-        setMembers([
-                ...members.slice(0, index),
-                ...members.slice(index + 1, members.length),
+    const handleMemberRemoval = (index, taskIdx) => {
+        const taskItem = tasks[taskIdx]
+        setTasks([
+                ...tasks.slice(0, taskIdx),
+                {
+                    ...taskItem,
+                    teamMembers: [
+                        ...taskItem.teamMembers.slice(0, index),
+                        ...taskItem.teamMembers.slice(index + 1, taskItem.teamMembers.length),
+                    ]
+                },
+                ...tasks.slice(taskIdx + 1, tasks.length),
             ])
     }
     const getTasks = async (project_id) => {
@@ -66,21 +84,35 @@ const ManageTeam = forwardRef(({ }, ref) => {
           console.log({ e })
         }
     }
+    const saveTeam = async () => {
+        try {
+          const user = localStorage.getItem('user');
+          const token = localStorage.getItem('token');
+          const organization_id = user && JSON.parse(user).organizations[0].id
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          const payload = {
+            tasksWithTeam: tasks.map(item => ({ id: item.id, team: item.teamMembers.map(i => ({ id: Number(i.id) })) }))
+          }
+          await axios.patch(`http://127.0.0.1:3001/organization/${organization_id}/task/update-team`, payload)
+        } catch (e) {
+          console.log({ e })
+        }
+    }
     return (
         <div className="p-5">
             <div className='flex justify-between mb-7'>
                 <h1 className="focus:outline-0 text-3xl">Team</h1>
-                <button disabled={!saveStatus} className={`${saveStatus ? 'bg-violet-600' : 'bg-violet-300'} text-white rounded-md p-2`}>
+                <button disabled={!saveStatus} className={`${saveStatus ? 'bg-violet-600' : 'bg-violet-300'} text-white rounded-md p-2`} onClick={saveTeam}>
                     SAVE
                     <FontAwesomeIcon icon={faSave} className='ml-2' />
                 </button>
             </div>
             <div className='flex flex-col'>
                 {
-                    tasks.map((item,k) => (
-                        <div key={k} className="flex flex-wrap mb-2 border-t-2 px-3 py-5">
-                            <div className="flex flex-col w-2/4 mb-3">
-                                <div className='flex items-center'>
+                    tasks.map((item, key) => (
+                        <div key={key} className="flex flex-wrap mb-2 border-t-2 px-5 py-5">
+                            <div className="flex flex-col w-2/4 mb-4">
+                                <div className='flex items-center mb-2'>
                                     <FontAwesomeIcon icon={faClock} className='mr-3 text-gray-600 text-sm' />
                                     <p className="text-gray-600 text-sm font-bold">Due date</p>
                                 </div>
@@ -88,8 +120,8 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     {formatDate.normal3(item.due_date)}
                                 </div>
                             </div>
-                            <div className="flex flex-col w-2/4 mb-3">
-                                <div className='flex items-center'>
+                            <div className="flex flex-col w-2/4 mb-4">
+                                <div className='flex items-center mb-2'>
                                     <FontAwesomeIcon icon={faTrafficLight} className='mr-3 text-gray-600 text-sm' />
                                     <p className="text-gray-600 text-sm font-bold">Status</p>
                                 </div>
@@ -97,8 +129,8 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     {item.is_completed ? 'Completed' : 'Not completed'}
                                 </div>
                             </div>
-                            <div className="flex flex-col w-2/4 mb-3">
-                                <div className='flex items-center'>
+                            <div className="flex flex-col w-2/4 mb-4">
+                                <div className='flex items-center mb-2'>
                                     <FontAwesomeIcon icon={faAlignLeft} className='mr-3 text-gray-600 text-sm' />
                                     <p className="text-gray-600 text-sm font-bold">Description</p>
                                 </div>
@@ -106,8 +138,8 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     {item.description}
                                 </div>
                             </div>
-                            <div className="flex flex-col w-2/4 mb-3">
-                                <div className='flex items-center'>
+                            <div className="flex flex-col w-2/4 mb-4">
+                                <div className='flex items-center mb-2'>
                                     <FontAwesomeIcon icon={faUserCog} className='mr-3 text-gray-600 text-sm' />
                                     <p className="text-gray-600 text-sm font-bold">Members</p>
                                 </div>
@@ -115,9 +147,9 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     <MultiSelect
                                         // list={[{value: 1, label: 'One'}, {value: 2, label: 'Two'}]}
                                         list={team.map(i => ({ label: `${i.firstName} ${i.lastName}`, value: i.id }))}
-                                        addSelection={handleMemberSelection}
-                                        removeSelection={handleMemberRemoval}
-                                        selections={members}
+                                        addSelection={(item_) => handleMemberSelection(item_, key)}
+                                        removeSelection={(idx) => handleMemberRemoval(idx, key)}
+                                        selections={item.teamMembers.map(i => (i.name ? { label: i.name, value: i.id } : { label: `${i.firstName} ${i.lastName}`, value: i.id }))}
                                     />
                                 </div>
                             </div>
