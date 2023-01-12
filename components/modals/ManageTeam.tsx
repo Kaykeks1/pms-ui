@@ -11,26 +11,31 @@ const ManageTeam = forwardRef(({ }, ref) => {
     useImperativeHandle(ref, () => ({
         async open2(projectId) {
             await getTasks(projectId)
-            // setSaveStatus(false)
-            setSaveStatus(true)
+            setSaveStatus(false)
         },
     }));
     useEffect(() => {
         fetchTeam()
     }, [])
-    // const checkForChange = () => {
-    //     const hasChanged = !isEqual(projectDetails, initialDetails)
-    //     if (hasChanged) {
-    //         setSaveStatus(true)
-    //     } else {
-    //         setSaveStatus(false)
-    //     }
-    // }
+    const checkForChange = () => {
+        const hasChanged = !isEqual(tasks, initialTasks)
+        if (hasChanged) {
+            setSaveStatus(true)
+        } else {
+            setSaveStatus(false)
+        }
+    }
     const [saveStatus, setSaveStatus] = useState(false);
+    const [initialTasks, setInitialTasks] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [team, setTeam] = useState([]);
+    useEffect(() => {
+        if (!isEmpty(initialTasks)) {
+            console.log({ initialTasks, tasks })
+            checkForChange()
+        }
+    }, [initialTasks, tasks])
     const handleMemberSelection = (item, taskIdx) => {
-        // todo: Make multi select list homogenous (i.e. like a set). Do this is in the multiselect component
         const taskItem = tasks[taskIdx]
         setTasks([
             ...tasks.slice(0, taskIdx),
@@ -67,6 +72,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
             const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/task/project/${project_id}`)
             const data = response.data
             setTasks(data)
+            setInitialTasks(data)
         } catch (e) {
             console.log({ e })
         }
@@ -111,7 +117,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
                 {
                     tasks.map((item, key) => (
                         <div key={key} className="flex flex-wrap mb-2 border-t-2 px-5 py-5">
-                            <div className="flex flex-col w-2/4 mb-4">
+                            <div className="flex flex-col w-2/4 mb-6">
                                 <div className='flex items-center mb-2'>
                                     <FontAwesomeIcon icon={faClock} className='mr-3 text-gray-600 text-sm' />
                                     <p className="text-gray-600 text-sm font-bold">Due date</p>
@@ -120,7 +126,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     {formatDate.normal3(item.due_date)}
                                 </div>
                             </div>
-                            <div className="flex flex-col w-2/4 mb-4">
+                            <div className="flex flex-col w-2/4 mb-6">
                                 <div className='flex items-center mb-2'>
                                     <FontAwesomeIcon icon={faTrafficLight} className='mr-3 text-gray-600 text-sm' />
                                     <p className="text-gray-600 text-sm font-bold">Status</p>
@@ -129,7 +135,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     {item.is_completed ? 'Completed' : 'Not completed'}
                                 </div>
                             </div>
-                            <div className="flex flex-col w-2/4 mb-4">
+                            <div className="flex flex-col w-2/4 mb-6">
                                 <div className='flex items-center mb-2'>
                                     <FontAwesomeIcon icon={faAlignLeft} className='mr-3 text-gray-600 text-sm' />
                                     <p className="text-gray-600 text-sm font-bold">Description</p>
@@ -138,7 +144,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                     {item.description}
                                 </div>
                             </div>
-                            <div className="flex flex-col w-2/4 mb-4">
+                            <div className="flex flex-col w-2/4 mb-6">
                                 <div className='flex items-center mb-2'>
                                     <FontAwesomeIcon icon={faUserCog} className='mr-3 text-gray-600 text-sm' />
                                     <p className="text-gray-600 text-sm font-bold">Members</p>
