@@ -59,7 +59,6 @@ const ProjectDetails = forwardRef(({  }, ref) => {
     ];
     useEffect(() => {
         if (!isEmpty(initialDetails)) {
-            console.log({ initialDetails, projectDetails })
             checkForChange()
         }
     }, [initialDetails, projectDetails])
@@ -72,7 +71,8 @@ const ProjectDetails = forwardRef(({  }, ref) => {
     }, [taskForm])
     const handleDetailsChange = (event) => {
         const name = event.target.name
-        if (name === 'description'
+        if (name === 'title'
+            || name === 'description'
             || name === 'priority'
             || name === 'effort'
             || name === 'status'
@@ -176,7 +176,12 @@ const ProjectDetails = forwardRef(({  }, ref) => {
             const payload = {
                 ...projectDetails,
                 deadline: new Date(projectDetails.deadline),
-                tasks: projectDetails.tasks.map(i => ({ ...i, is_completed: i.is_completed === 'completed', due_date: new Date(i.due_date) }))
+                tasks: projectDetails.tasks.map(i => ({
+                    id: i.id && i.id,
+                    description: i.description,
+                    is_completed: i.is_completed === 'completed',
+                    due_date: new Date(i.due_date),
+                }))
             }
             for (const key in payload) {
                 if (!payload[key]) {
@@ -196,7 +201,7 @@ const ProjectDetails = forwardRef(({  }, ref) => {
     return (
         <div className="p-5">
             <div className='flex justify-between mb-5'>
-                <input className="focus:outline-0 text-3xl" type="text" name="description" placeholder='Empty' value={projectDetails.title} onChange={handleDetailsChange} />
+                <input className="focus:outline-0 text-3xl" type="text" name="title" placeholder='Empty' value={projectDetails.title} onChange={handleDetailsChange} />
                 <button disabled={!saveStatus} className={`${saveStatus ? 'bg-violet-600' : 'bg-violet-300'} text-white rounded-md p-2`} onClick={saveDetails}>
                     SAVE
                     <FontAwesomeIcon icon={faSave} className='ml-2' />
