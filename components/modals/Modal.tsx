@@ -3,10 +3,11 @@ import { forwardRef, useImperativeHandle, ReactNode, useEffect } from 'react';
 type Props = {
     children?: ReactNode
     name?: string
+    onClose?: Function
   }
   
 
-const Modal = forwardRef(({ children, name }: Props, ref) => {
+const Modal = forwardRef(({ children, name, onClose }: Props, ref) => {
 
     useImperativeHandle(ref, () => ({
         open() {
@@ -29,6 +30,7 @@ const Modal = forwardRef(({ children, name }: Props, ref) => {
             allModals.forEach(modal => {
                 if (event.target == modal) {
                     modal.style.display = "none";
+                    onClose()
                 }
                 
             })

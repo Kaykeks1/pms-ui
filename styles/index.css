@@ -67,9 +67,29 @@ body {
     padding: 5px 10px;
 }
 
+.nice-priority {
+    color: #FFFFFF;
+    background-color: #3c4ec0;
+}
+
+.low-priority {
+    color: #FFFFFF;
+    background-color: #65a9cb;
+}
+
 .medium-priority {
     color: #FFFFFF;
     background-color: #67CB65;
+}
+
+.high-priority {
+    color: #FFFFFF;
+    background-color: #cbac65;
+}
+
+.critical-priority {
+    color: #FFFFFF;
+    background-color: #cb7965;
 }
 
 td, th {

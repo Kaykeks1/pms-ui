@@ -52,7 +52,7 @@ const Team = () => {
   }
   return (
     <MainLayout title="Team" pageTitle="Team">
-      <Modal name='Create-Team' ref={ref1}>
+      <Modal name='Create-Team' ref={ref1} onClose={() => {}}>
         <CreateTeamMember ref={ref2} onCreateMember={triggerCreateMember} />
       </Modal>
       <div className={styles["top-section"]}>

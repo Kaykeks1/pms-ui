@@ -144,12 +144,15 @@ const Projects = () => {
     ref3.current.open()
     ref4.current.open2(projectId)
   }
+  const onClose = async () => {
+    await fetchProjects()
+  }
   return(
     <MainLayout title="Projects" pageTitle="Projects">
-      <Modal name='Details' ref={ref1} key={1}>
+      <Modal name='Details' ref={ref1} key={1} onClose={onClose}>
         <ProjectDetails ref={ref2} />
       </Modal>
-      <Modal name='Team' ref={ref3} key={2}>
+      <Modal name='Team' ref={ref3} key={2} onClose={onClose}>
         <ManageTeam ref={ref4} />
       </Modal>
       <h1 className={styles["title-text"]}>Scrum Board</h1>
