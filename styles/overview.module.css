@@ -1,0 +1,93 @@
+.analytics-overview {
+    width: 100%;
+    display: flex;
+}
+
+.left-metrics {
+    width: 30%;
+    margin-right: 10px;
+}
+
+.right-metrics {
+    width: 65%;
+    margin-left: 10px;
+}
+
+.numbers {
+    margin-bottom: 20px;
+    padding: 10px 30px;
+}
+
+.number {
+    padding: 20px 0px;
+    display: flex;
+}
+
+.number > .icon {
+    background: #F1EEF7;
+    border-radius: 10px;
+    padding: 20px;
+    margin-right: 20px;
+}
+
+.number .label {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #757575;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.number .value {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    color: #000000;
+}
+
+.number > .icon > svg {
+    color: rgba(124, 58, 237);
+    font-size: 25px;
+}
+
+.line:not(:last-child)  {
+    border: 1px solid #EAEAEA;
+    height: 4px;
+    width: 50%;
+}
+
+.pie-chart {
+    padding: 10px 30px;
+}
+
+.legends {
+    margin-top: 10px;
+}
+
+.legend {
+    display: flex;
+    height: 25px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.legend > .color {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 20px;
+    background-color: black;
+}
+
+.line-chart {
+    margin-bottom: 20px;
+}
+
+.latest-list {
+}
+
+.numbers, .pie-chart, .line-chart, .latest-list {
+    border: 1px solid #EAEAEA;
+    border-radius: 5px;
+}
