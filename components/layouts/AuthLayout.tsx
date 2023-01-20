@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import profilePic from './gear.png'
+import profilePic from '../../images/gear.png'
 
 type Props = {
   children?: ReactNode
