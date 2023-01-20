@@ -15,7 +15,6 @@
 
 .numbers {
     margin-bottom: 20px;
-    padding: 10px 30px;
 }
 
 .number {
@@ -58,7 +57,6 @@
 }
 
 .pie-chart {
-    padding: 10px 30px;
 }
 
 .legends {
@@ -82,7 +80,6 @@
 
 .line-chart {
     margin-bottom: 20px;
-    padding: 10px 30px;
 }
 
 .line-chart > p {
@@ -91,10 +88,38 @@
     color: #757575;
 }
 
-.latest-list {
+.latest-project {
 }
 
-.numbers, .pie-chart, .line-chart, .latest-list {
+.numbers, .pie-chart, .line-chart, .latest-project {
     border: 1px solid #EAEAEA;
-    border-radius: 5px;
+    border-radius: 10px;
+    padding: 20px 30px;
+}
+
+.latest-project > p {
+    font-size: 20px;
+    font-weight: 500;
+    color: #757575;
+}
+
+.latest-project > table > thead > tr > th {
+    padding: 20px;
+}
+
+.latest-project > table > tbody > tr > td {
+    padding: 20px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+}
+
+.status > div {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: yellow;
+    margin-right: 10px;
 }
