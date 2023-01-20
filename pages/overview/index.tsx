@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from 'react';
 import { AreaChart, PieChart } from 'react-chartkick'
 import 'chartkick/chart.js'
 import axios from 'axios';
+import formatDate from '../../utils/formatDate';
 
 // export const getServerSideProps = async (context) => {
 // export const getstaticprops = async (context) => {
@@ -34,9 +35,48 @@ const Overview = () => {
     { label: 'Number of tasks', slug: 'totalTasks', value: 0, icon: faListUl },
     { label: 'Number of members', slug: 'totalMembers', value: 0, icon: faUsers },
   ]
+  const initialProjects = [
+    {
+      createdAt: "2023-01-03T19:35:15.725Z",
+      deadline: "2023-10-20T00:00:00.000Z",
+      description: "Complete the task",
+      effort: "small",
+      id: 1,
+      organizationId: 1,
+      priority: "nice",
+      status: "not_started",
+      title: "Complete App",
+      updatedAt: "2023-01-13T21:22:42.501Z"
+    },
+    {
+      createdAt: "2023-01-03T19:35:15.725Z",
+      deadline: "2023-10-20T00:00:00.000Z",
+      description: "Complete the task",
+      effort: "small",
+      id: 1,
+      organizationId: 1,
+      priority: "nice",
+      status: "not_started",
+      title: "Complete App",
+      updatedAt: "2023-01-13T21:22:42.501Z"
+    },
+    {
+      createdAt: "2023-01-03T19:35:15.725Z",
+      deadline: "2023-10-20T00:00:00.000Z",
+      description: "Complete the task",
+      effort: "small",
+      id: 1,
+      organizationId: 1,
+      priority: "nice",
+      status: "not_started",
+      title: "Complete App",
+      updatedAt: "2023-01-13T21:22:42.501Z"
+    },
+  ]
   const initialStatusChart = [["not_started", 44], ["started", 23], ["delayed", 44], ["completed", 23], ["on_hold", 44]]
   const [numbers, setNumbers] = useState(initialNumbers);
   const [statusChart, setStatusChart] = useState(initialStatusChart);
+  const [latestProjects, setLatestProjects] = useState(initialProjects);
   const [gradientFill, setGradientFill] = useState<CanvasGradient>();
   const legend = ['not_started', 'started', 'delayed', 'completed', 'on_hold']
   const PieChartColors = ['#4B7BE5', '#A85CF9', '#5534A5', '#6FDFDF', '#F1EEF6']
@@ -155,7 +195,37 @@ const Overview = () => {
               library={areachartLibraryOptions}
             />
           </div>
-          <div className={styles['latest-list']}></div>
+          <div className={styles['latest-project']}>
+            <p>Most due Projects</p>
+            <table className="w-full border-collapse mt-7">
+              <thead>
+                  <tr>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Priority</th>
+                      <th>Due on</th>
+                      <th>Status</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {
+                      latestProjects.map((item, key) => 
+                          <tr key={key}>
+                              <td>{item.title}</td>
+                              <td>{item.description}</td>
+                              <td>{item.priority}</td>
+                              <td>{formatDate.normal3(item.deadline)}</td>
+                              <td>
+                                <div className={styles['status']}>
+                                  <div/>{item.status}
+                                </div>
+                              </td>
+                          </tr>
+                      )
+                  }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </MainLayout>
