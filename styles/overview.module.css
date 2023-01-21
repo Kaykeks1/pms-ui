@@ -109,6 +109,7 @@
 
 .latest-project > table > tbody > tr > td {
     padding: 20px;
+    text-transform: capitalize;
 }
 
 .status {
@@ -120,6 +121,5 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: yellow;
     margin-right: 10px;
 }
