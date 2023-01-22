@@ -59,6 +59,29 @@
 .pie-chart {
 }
 
+.pie-chart-container {
+    position: relative;
+}
+
+.pie-chart-total {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    /* display: grid;
+    place-items: center;
+    text-align: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+}
+
+.total-titel {
+    font-weight: bold;
+}
+
 .legends {
     margin-top: 10px;
 }

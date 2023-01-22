@@ -53,6 +53,7 @@ const Overview = () => {
   const initialStatusChart = [["not_started", 44], ["started", 23], ["delayed", 44], ["completed", 23], ["on_hold", 44]]
   const [numbers, setNumbers] = useState(initialNumbers);
   const [statusChart, setStatusChart] = useState(initialStatusChart);
+  const [statusTotal, setStatusTotal] = useState(0);
   const [latestProjects, setLatestProjects] = useState(initialProjects);
   const [tasksDueTrend, setTasksDueTrend] = useState({ [(new Date()).toDateString()]: 0 });
   const [gradientFill, setGradientFill] = useState<CanvasGradient>();
@@ -86,7 +87,13 @@ const Overview = () => {
       const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/statistics/overview`)
       const data = response.data
       const { percentageOfProjectsByStatus, mostDueProjects, taskTrend } = data
-      setStatusChart(Object.keys(percentageOfProjectsByStatus).map(key => [key, percentageOfProjectsByStatus[key]]))
+      setStatusChart(Object.keys(percentageOfProjectsByStatus).map(key => [key, percentageOfProjectsByStatus[key].value]))
+      const listOfStatusCount = Object.values(percentageOfProjectsByStatus)
+      interface projectStatusCountAndPercentage {
+        value: number
+        percentage: number
+      }
+      setStatusTotal(listOfStatusCount.reduce((acc: number, curr: projectStatusCountAndPercentage) => (acc + curr.value), 0) as number)
       setNumbers(numbers.map(i => ({ ...i, value: i.slug === 'completedTasksPercentage' ? `${data[i.slug]}%` : data[i.slug] })))
       setLatestProjects(mostDueProjects)
       const getDate_ = (week, year) => {
@@ -95,7 +102,6 @@ const Overview = () => {
         let month = Math.round((week * MONTHS_IN_A_YEAR) / WEEKS_IN_A_YEAR)
         return (new Date(year, month - 1)).toDateString()
       }
-      const x = new Date()
       const taskTrend_ = taskTrend.reduce((acc, cur) => ({ ...acc, [getDate_(cur.week, cur.year)]: cur.no_of_tasks_done }), {})
       setTasksDueTrend(taskTrend_)
     } catch (e) {
@@ -155,12 +161,18 @@ const Overview = () => {
             }
           </div>
           <div className={styles['pie-chart']}>
-            <PieChart
-              data={statusChart}
-              donut
-              legend={false}
-              colors={pieChartColors}
-            />
+            <div className={styles['pie-chart-container']}>
+              <PieChart
+                data={statusChart}
+                donut
+                legend={false}
+                colors={pieChartColors}
+              />
+              <div className={styles['pie-chart-total']}>
+                <p className={styles['total-titel']}>Total</p>
+                <p>{statusTotal}</p>
+              </div>
+            </div>
             <div className={styles['legends']}>
               {
                 legend.map((i, key) =>
