@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 
 const Signup = () => {
     const [form, setForm] = useState({ name: '', firstName: '', lastName:'', email: '', password: '', confirmPassword: '' });
+    const [loading, setLoading] = useState(false);
     const router = useRouter()
     const handleChange = (event) => {
         switch(event.target.name){
@@ -30,13 +31,22 @@ const Signup = () => {
                 break;
         }
     }
+    const disableSignin = () => !(!!form.name
+        && !!form.firstName
+        && !!form.lastName
+        && !!form.email
+        && !!form.password
+        && !!form.confirmPassword
+    )
     const signup = async (e) => {
         e.preventDefault();
         try {
             const payload = { ...form}
             if (form.password === form.confirmPassword) {
                 delete payload.confirmPassword
+                setLoading(true)
                 const response = await axios.post('http://127.0.0.1:3001/auth/signup', payload)
+                setLoading(false)
                 const data = response.data
                 router.push('/')
                 localStorage.setItem('token', data.token)
@@ -45,6 +55,7 @@ const Signup = () => {
                 alert('Password confirmation failed')
             }
         } catch (error) {
+            setLoading(false)
             console.log(error.response.data)
         }
     }
@@ -75,7 +86,11 @@ const Signup = () => {
                 <label>Confirm Password:</label>
                 <input type="password" name="confirmPassword" value={form.confirmPassword} onChange={handleChange} />
             </div>
-            <button className={styles["submit-btn"]} type='submit'>Sign up</button>
+            <button className={styles["submit-btn"]} type='submit' disabled={disableSignin()} style={disableSignin() ? { cursor: 'not-allowed', backgroundColor: 'grey' } : { cursor: 'pointer' }}>
+                {
+                    loading ? (<i className="fa fa-circle-o-notch fa-spin" />) : 'Sign up'
+                }
+            </button>
         </form>
         <p className={styles["question"]}>Already have an account? <Link href="/auth/signin">Sign in</Link></p>
     </AuthLayout>)

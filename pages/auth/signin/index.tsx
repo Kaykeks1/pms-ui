@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 
 const Signin = () => {
     const [form, setForm] = useState({ email: '', password: '' });
+    const [loading, setLoading] = useState(false);
     const router = useRouter()
     const handleChange = (event) => {
         switch(event.target.name){
@@ -19,11 +20,14 @@ const Signin = () => {
                 break;
         }
     }
+    const disableSignin = () => !(!!form.email && !!form.password)
     const signin = async (e) => {
         e.preventDefault();
         try {
             const payload = { ...form}
+            setLoading(true)
             const response = await axios.post('http://127.0.0.1:3001/auth/signin', payload)
+            setLoading(false)
             const data = response.data
             router.push('/')
             localStorage.setItem('token', data.token)
@@ -32,6 +36,7 @@ const Signin = () => {
             cookies.set('token', data.token, { path: '/' });
             cookies.set('user', JSON.stringify(data.user), { path: '/' });
         } catch (error) {
+            setLoading(false)
             console.log(error)
         }
     }
@@ -46,7 +51,11 @@ const Signin = () => {
                 <label>Password:</label>
                 <input type="password" name="password" value={form.password} onChange={handleChange} />
             </div>
-            <button className={styles["submit-btn"]} type='submit'>Sign in</button>
+            <button className={styles["submit-btn"]} type='submit' disabled={disableSignin()} style={disableSignin() ? { cursor: 'not-allowed', backgroundColor: 'grey' } : { cursor: 'pointer' }}>
+                {
+                    loading ? (<i className="fa fa-circle-o-notch fa-spin" />) : 'Sign in'
+                }
+            </button>
         </form>
         <p className={styles["question"]}>Don't have an account? <Link href="/auth/signup">Register</Link></p>
     </AuthLayout>
