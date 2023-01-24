@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import profilePic from './growth.png'
 import Sidebar from '../sidebar/Sidebar'
+import formatDate from '../../utils/formatDate';
 
 type Props = {
   children?: ReactNode
@@ -28,7 +29,8 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
       <div className='page-container'>
         <div className='page-header'>
           <h5 className='page-title'>{pageTitle}</h5>
-          <span className='current-date'>Monday, 4th September</span>
+          {/* <span className='current-date'>Monday, 4th September</span> */}
+          <span className='current-date'>{formatDate.normal4(new Date())}</span>
         </div>
         <div className='page-body'>
           {children}
