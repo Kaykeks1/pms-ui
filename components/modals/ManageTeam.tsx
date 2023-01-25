@@ -31,7 +31,6 @@ const ManageTeam = forwardRef(({ }, ref) => {
     const [team, setTeam] = useState([]);
     useEffect(() => {
         if (!isEmpty(initialTasks)) {
-            console.log({ initialTasks, tasks })
             checkForChange()
         }
     }, [initialTasks, tasks])
@@ -151,7 +150,6 @@ const ManageTeam = forwardRef(({ }, ref) => {
                                 </div>
                                 <div>
                                     <MultiSelect
-                                        // list={[{value: 1, label: 'One'}, {value: 2, label: 'Two'}]}
                                         list={team.map(i => ({ label: `${i.firstName} ${i.lastName}`, value: i.id }))}
                                         addSelection={(item_) => handleMemberSelection(item_, key)}
                                         removeSelection={(idx) => handleMemberRemoval(idx, key)}

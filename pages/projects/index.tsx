@@ -42,7 +42,6 @@ const Projects = () => {
   const [draggedTask, setDraggedTask] = useState<DraggedTask>({ from: '', item: { id: '', title: '' } });
   const [showCreateInput, toggleCreateInput] = useState(false);
   const [newProjectTitle, setNewProjectTitle] = useState('');
-  // const [draggedTask, setDraggedTask] = useState({ from: '', item: { id: '', title: '' } });
   const ref = useRef() as any;
   let ref1 = Object.assign({}, ref)
   let ref2 = Object.assign({}, ref)
