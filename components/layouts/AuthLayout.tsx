@@ -28,8 +28,8 @@ const AuthLayout = ({ children, title = 'This is the default title', pageTitle }
         />
         <h1 className="text-3xl font-semi bold text-center text-white">PMS.</h1>
       </div>
-      {/* md:h-full */}
-      <div className="flex flex-col md:flex-row w-full h-full justify-center pt-20 md:pt-0">
+      {/* md:h-full or h-full */}
+      <div className="flex flex-col md:flex-row w-full md:h-full justify-center pt-60 pb-20 md:pt-0 md:pb-0 overflow-auto z-10">
         <div className="flex w-full md:w-1/2 text-4xl md:text-7xl font-semi bold text-center text-white md:items-center justify-center md:h-full p-5">Project Management System.</div>
         <div className="flex w-full md:w-1/2 items-center justify-center md:h-full">
           <div className="flex flex-col bg-white w-3/5 p-10 rounded-lg">{children}</div>
