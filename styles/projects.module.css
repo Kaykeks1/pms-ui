@@ -15,7 +15,7 @@
 
 .projects-container {
     display: flex;
-    justify-content: space-between;
+    gap: 30px;
     flex-wrap: wrap;
     margin-top: 40px;
 }
@@ -24,8 +24,8 @@
     display: flex;
     flex-direction: column;
     background: #F1EEF6;
-    height: 800px;
-    width: 19%;
+    height: 700px;
+    width: 350px;
     border-radius: 10px;
     margin-bottom: 10px;
     padding: 15px;
@@ -74,14 +74,31 @@
     padding: 0 10px;
 }
 
+.list-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .list-item {
     min-height: 150px;
-    width: 100%;
+    width: 96%;
     background-color: white;
     border-radius: 10px;
     padding: 15px;
     margin: 10px 0;
     cursor: pointer;
+    -webkit-transition: min-height 0.5s;
+    transition: 1.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.list-item:hover {
+    box-shadow: inset 700px 0 0 0 #d2ccff;
+    min-height: 170px;
+    width: 100%;
 }
 
 .list-item-head {

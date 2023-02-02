@@ -173,6 +173,7 @@ const Projects = () => {
                   <FontAwesomeIcon icon={faSave} className='cursor-pointer text-green ml-2' onClick={createProject} />
                 </div>
             }
+            <div className={styles["list-body"]}>
             {
               item.items.map((project, key2) => (
                 <div onClick={() => openModal(project.id)} key={key2} className={styles["list-item"]} draggable onDrag={(event) => onDrag(event, project, item.title)}>
@@ -195,6 +196,7 @@ const Projects = () => {
                 </div>
               ))
             }
+            </div>
           </div>
           ))
         }
