@@ -154,6 +154,7 @@ tr:nth-child(even) {
     display: block;
     background-color: white;
     z-index: 1;
+    top: 90px;
 }
 
 @media (max-width: 976px) {
