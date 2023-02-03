@@ -22,7 +22,7 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
     const hamburger = document.getElementById('menu-btn')
     const sidebar = document.getElementById('sibe-bar')
     hamburger.classList.toggle('open')
-    sidebar.classList.add('active-mobile-sidebar')
+    sidebar.classList.toggle('active-mobile-sidebar')
   }
   const onClickPageBody = () => {
     const sidebar = document.getElementById('sibe-bar')
@@ -31,14 +31,16 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
     hamburger.classList.remove('open')
     // Todo: Add an overlay to the template when mobile sidebar appears
   }
-  const sidebar = document.getElementById('sibe-bar')
-  const hamburger = document.getElementById('menu-btn')
-  window.addEventListener("resize", function() {
-    if (window.innerWidth > 976) {
-      hamburger.classList.remove('open')
-      sidebar.classList.remove("active-mobile-sidebar");
-    }
-  });
+  if (typeof window !== 'undefined') {
+    const sidebar = document.getElementById('sibe-bar')
+    const hamburger = document.getElementById('menu-btn')
+    window.addEventListener("resize", function() {
+      if (window.innerWidth > 976) {
+        hamburger.classList.remove('open')
+        sidebar.classList.remove("active-mobile-sidebar");
+      }
+    });
+  }
   return (<div>
     <Head>
       <title>{title}</title>
