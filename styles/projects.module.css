@@ -89,7 +89,7 @@
     margin: 10px 0;
     cursor: pointer;
     -webkit-transition: min-height 0.5s;
-    transition: 1.5s;
+    transition: 0.5s;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
