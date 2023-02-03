@@ -13,7 +13,7 @@ const Sidebar = () => {
     router.push('/auth/signin')
   }
   return (
-  <div className="flex flex-col w-1/6 border-r border-gray-200 h-screen py-10 fixed">
+  <div className="flex flex-col w-1/6 border-r border-gray-200 h-screen py-10 fixed hidden lg:block" id="sibe-bar">
     <div className="flex items-center mb-10">
         <Image
             className="object-cover w-12 h-12 ml-6 mr-4 rounded-full"

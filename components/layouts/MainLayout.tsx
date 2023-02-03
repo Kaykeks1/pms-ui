@@ -17,26 +17,56 @@ type Props = {
 //   // return '.'
 // }
 
-const MainLayout = ({ children, title = 'This is the default title', pageTitle }: Props) => (
-  <div>
+const MainLayout = ({ children, title = 'This is the default title', pageTitle }: Props) => {
+  const showMobileSidebar = () => {
+    const hamburger = document.getElementById('menu-btn')
+    const sidebar = document.getElementById('sibe-bar')
+    hamburger.classList.toggle('open')
+    sidebar.classList.add('active-mobile-sidebar')
+  }
+  const onClickPageBody = () => {
+    const sidebar = document.getElementById('sibe-bar')
+    sidebar.classList.remove('active-mobile-sidebar')
+    const hamburger = document.getElementById('menu-btn')
+    hamburger.classList.remove('open')
+    // Todo: Add an overlay to the template when mobile sidebar appears
+  }
+  const sidebar = document.getElementById('sibe-bar')
+  const hamburger = document.getElementById('menu-btn')
+  window.addEventListener("resize", function() {
+    if (window.innerWidth > 976) {
+      hamburger.classList.remove('open')
+      sidebar.classList.remove("active-mobile-sidebar");
+    }
+  });
+  return (<div>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    <div className="flex">
+    <div className="flex relative">
       <Sidebar />
       <div className='page-container'>
         <div className='page-header'>
+          <button
+            id="menu-btn"
+            className="block hamburger lg:hidden focus:outline-none"
+            onClick={showMobileSidebar}
+          >
+            <span className="hamburger-top"></span>
+            <span className="hamburger-middle"></span>
+            <span className="hamburger-bottom"></span>
+          </button>
           <h5 className='page-title'>{pageTitle}</h5>
           <span className='current-date'>{formatDate.normal4(new Date())}</span>
         </div>
-        <div className='page-body'>
+        <div className='page-body' id="page-body" onClick={onClickPageBody}>
           {children}
         </div>
       </div>
     </div>
-  </div>
-)
+  </div>)
+}
 
 export default MainLayout
