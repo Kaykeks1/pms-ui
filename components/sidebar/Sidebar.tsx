@@ -24,7 +24,7 @@ const Sidebar = () => {
         />
         <h1 className="text-3xl font-semibold text-center text-gray-800 dark:text-black">PMS.</h1>
     </div>
-    <div className="flex flex-col h-screen justify-between">
+    <div className="flex flex-col h-5/6 justify-between">
         <div className="flex flex-col">
             <Link
                 className={`flex py-1 my-2 h-12 ml-8 w-full group hover:ml-0${router.pathname == "/overview" && ' ml-0 before:p-1 before:mr-6 before:rounded-tr-lg before:rounded-br-lg before:bg-violet-600'}`}

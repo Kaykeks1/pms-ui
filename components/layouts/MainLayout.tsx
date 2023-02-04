@@ -23,6 +23,7 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
     const sidebar = document.getElementById('sibe-bar')
     hamburger.classList.toggle('open')
     sidebar.classList.toggle('active-mobile-sidebar')
+    document.getElementById("overlay").style.display = "block";
   }
   const onClickPageBody = () => {
     const sidebar = document.getElementById('sibe-bar')
@@ -30,6 +31,7 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
     const hamburger = document.getElementById('menu-btn')
     hamburger.classList.remove('open')
     // Todo: Add an overlay to the template when mobile sidebar appears
+    document.getElementById("overlay").style.display = "none";
   }
   if (typeof window !== 'undefined') {
     const sidebar = document.getElementById('sibe-bar')
@@ -38,6 +40,7 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
       if (window.innerWidth > 976) {
         hamburger.classList.remove('open')
         sidebar.classList.remove("active-mobile-sidebar");
+        document.getElementById("overlay").style.display = "none";
       }
     });
   }
@@ -63,8 +66,9 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
           <h5 className='page-title'>{pageTitle}</h5>
           <span className='current-date'>{formatDate.normal4(new Date())}</span>
         </div>
-        <div className='page-body' id="page-body" onClick={onClickPageBody}>
+        <div className='page-body'>
           {children}
+          <div id="overlay" onClick={onClickPageBody} />
         </div>
       </div>
     </div>
