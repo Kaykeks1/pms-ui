@@ -4,6 +4,8 @@
 }
 
 .left-metrics {
+    display: flex;
+    flex-direction: column;
     width: 30%;
     margin-right: 10px;
 }
@@ -145,4 +147,40 @@
     height: 10px;
     border-radius: 50%;
     margin-right: 10px;
+}
+
+@media (max-width: 976px) {
+    .analytics-overview {
+        flex-direction: column;
+    }
+    .left-metrics {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .numbers {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .pie-chart {
+
+    }
+    .legends {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    .legend {
+    }
+    .right-metrics {
+        width: 100%;
+        margin-left: 0;
+    }
+    .line-chart {
+        margin-top: 20px;
+    }
+    .latest-project > div {
+        overflow-x: auto;
+    }
 }

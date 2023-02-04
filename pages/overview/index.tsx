@@ -196,34 +196,36 @@ const Overview = () => {
           </div>
           <div className={styles['latest-project']}>
             <p>Most due Projects</p>
-            <table className="w-full border-collapse mt-7">
-              <thead>
-                  <tr>
-                      <th>Title</th>
-                      <th>Description</th>
-                      <th>Priority</th>
-                      <th>Due on</th>
-                      <th>Status</th>
-                  </tr>
-              </thead>
-              <tbody>
-                {
-                  latestProjects.map((item, key) => 
-                    <tr key={key}>
-                      <td>{item.title || '--'}</td>
-                      <td>{item.description || '--'}</td>
-                      <td>{item.priority || '--'}</td>
-                      <td>{formatDate.normal3(item.deadline) || '--'}</td>
-                      <td>
-                        <div className={styles['status']}>
-                          <div style={{ backgroundColor: pieChartColors[legend.findIndex(i => i == item.status)] }}/>{item.status.replace('_', ' ')}
-                        </div>
-                      </td>
+            <div>
+              <table className="w-full border-collapse mt-7">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Due on</th>
+                        <th>Status</th>
                     </tr>
-                  )
-                }
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {
+                    latestProjects.map((item, key) => 
+                      <tr key={key}>
+                        <td>{item.title || '--'}</td>
+                        <td>{item.description || '--'}</td>
+                        <td>{item.priority || '--'}</td>
+                        <td>{formatDate.normal3(item.deadline) || '--'}</td>
+                        <td>
+                          <div className={styles['status']}>
+                            <div style={{ backgroundColor: pieChartColors[legend.findIndex(i => i == item.status)] }}/>{item.status.replace('_', ' ')}
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  }
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
