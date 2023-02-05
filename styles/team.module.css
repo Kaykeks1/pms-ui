@@ -21,15 +21,13 @@
     /* width: 40%; */
 }
 
-.btn-sction {
-    width: 40%;
+.btn-section {
     display: flex;
     justify-content: flex-end;
 }
 
 .create-btn {
     border: 1px solid rgba(124, 58, 237);
-    color: white;
     color: rgba(124, 58, 237);
     padding: 5px 15px;
     border-radius: 5px;
@@ -48,10 +46,12 @@
     justify-content: space-between;
     border-top: 1px solid #a9a9a9;
     padding: 10px 15px;
+    flex-wrap: wrap;
 }
 
 .list-item-detail {
     padding: 5px;
+    margin-bottom: 10px;
 }
 
 .list-item-detail div {
