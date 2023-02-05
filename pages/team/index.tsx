@@ -57,7 +57,7 @@ const Team = () => {
       </Modal>
       <div className={styles["top-section"]}>
         <div className={styles["sub-text"]}>Here is the list of all team members that can be assigned to a project. Click on the button on the top right to create a new team member.</div>
-        <div className={styles["btn-sction"]}>
+        <div className={styles["btn-section"]}>
           <button className={styles["create-btn"]} onClick={openModal}>Create <FontAwesomeIcon className='ml-2' icon={faPlus} /></button>
         </div>
       </div>
