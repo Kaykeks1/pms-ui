@@ -32,9 +32,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    border: 1px solid blue;
     position: fixed;
-    /* height: 100px; */
+    right:0;
+    left: 16.7%;
     padding: 25px 30px;
     background-color: white;
     z-index: 1;
@@ -172,7 +173,25 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
+#sibe-bar {
+    animation-name: smooth-transition;
+    animation-duration: 1s;
+}
+
+@keyframes smooth-transition {
+    from {
+        width: 0%;
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 @media (max-width: 976px) {
+    .page-header {
+        left: 0;
+    }
     .page-container {
         margin-left: 0% !important;
     }
