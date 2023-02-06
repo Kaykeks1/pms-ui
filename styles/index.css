@@ -32,7 +32,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid blue;
     position: fixed;
     right:0;
     left: 16.7%;
@@ -173,7 +172,7 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
-#sibe-bar {
+/* #sibe-bar {
     animation-name: smooth-transition;
     animation-duration: 1s;
 }
@@ -186,7 +185,7 @@ tr:nth-child(even) {
     to {
         opacity: 1;
     }
-}
+} */
 
 @media (max-width: 976px) {
     .page-header {
