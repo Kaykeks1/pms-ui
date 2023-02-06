@@ -115,7 +115,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
             <div className='flex flex-col'>
                 {
                     tasks.map((item, key) => (
-                        <div key={key} className="flex flex-wrap mb-2 border-t-2 px-5 py-5">
+                        <div key={key} className="flex flex-col sm:flex-row flex-wrap mb-2 border-t-2 px-5 py-5">
                             <div className="flex flex-col w-2/4 mb-6">
                                 <div className='flex items-center mb-2'>
                                     <FontAwesomeIcon icon={faClock} className='mr-3 text-gray-600 text-sm' />
