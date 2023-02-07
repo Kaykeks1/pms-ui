@@ -29,6 +29,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
     const [initialTasks, setInitialTasks] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [team, setTeam] = useState([]);
+    const [projectId, setProjectId] = useState();
     useEffect(() => {
         if (!isEmpty(initialTasks)) {
             checkForChange()
@@ -72,6 +73,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
             const data = response.data
             setTasks(data)
             setInitialTasks(data)
+            setProjectId(project_id)
         } catch (e) {
             console.log({ e })
         }
@@ -99,6 +101,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
             tasksWithTeam: tasks.map(item => ({ id: item.id, team: item.teamMembers.map(i => ({ id: Number(i.id) })) }))
           }
           await axios.patch(`http://127.0.0.1:3001/organization/${organization_id}/task/update-team`, payload)
+          await getTasks(projectId)
         } catch (e) {
           console.log({ e })
         }
