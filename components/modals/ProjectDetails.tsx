@@ -192,7 +192,8 @@ const ProjectDetails = forwardRef(({  }, ref) => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const response = await axios.patch(`http://127.0.0.1:3001/organization/${organization_id}/project/edit/${projectId}`, payload)
             const data = response.data
-            return true
+            await getProject(projectId)
+            return data
           } catch (e) {
             console.log({e})
             return false
@@ -303,8 +304,8 @@ const ProjectDetails = forwardRef(({  }, ref) => {
                             <thead>
                                 <tr>
                                     <th>Due date</th>
-                                    <th>Status</th>
-                                    <th>Description</th>
+                                    <th style={{minWidth: '200px'}}>Status</th>
+                                    <th style={{minWidth: '200px'}}>Description</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
