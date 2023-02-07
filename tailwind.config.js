@@ -11,7 +11,11 @@ module.exports = {
       lg: '976px',
       xl: '1440px',
     },
-    extend: {},
+    extend: {
+      spacing: {
+        '9/10': '90%',
+      }
+    },
   },
   plugins: [],
 }
