@@ -94,7 +94,7 @@ const Overview = () => {
         percentage: number
       }
       setStatusTotal(listOfStatusCount.reduce((acc: number, curr: projectStatusCountAndPercentage) => (acc + curr.value), 0) as number)
-      setNumbers(numbers.map(i => ({ ...i, value: i.slug === 'completedTasksPercentage' ? `${data[i.slug]}%` : data[i.slug] })))
+      setNumbers(numbers.map(i => ({ ...i, value: i.slug === 'completedTasksPercentage' ? `${Math.ceil(data[i.slug])}%` : data[i.slug] })))
       setLatestProjects(mostDueProjects)
       const getDate_ = (week, year) => {
         const WEEKS_IN_A_YEAR = 52
