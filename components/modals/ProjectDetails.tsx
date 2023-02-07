@@ -304,8 +304,8 @@ const ProjectDetails = forwardRef(({  }, ref) => {
                             <thead>
                                 <tr>
                                     <th>Due date</th>
-                                    <th>Status</th>
-                                    <th>Description</th>
+                                    <th style={{minWidth: '200px'}}>Status</th>
+                                    <th style={{minWidth: '200px'}}>Description</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
