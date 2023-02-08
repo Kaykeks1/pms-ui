@@ -12,11 +12,6 @@ type Props = {
   pageTitle?: string
 }
 
-// const myLoader = ({ src, width, quality }) => {
-//   return `https://example.com/${src}?w=${width}&q=${quality || 75}`
-//   // return '.'
-// }
-
 const MainLayout = ({ children, title = 'This is the default title', pageTitle }: Props) => {
   const showMobileSidebar = () => {
     const hamburger = document.getElementById('menu-btn')
@@ -30,7 +25,6 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
     sidebar.classList.remove('active-mobile-sidebar')
     const hamburger = document.getElementById('menu-btn')
     hamburger.classList.remove('open')
-    // Todo: Add an overlay to the template when mobile sidebar appears
     document.getElementById("overlay").style.display = "none";
   }
   if (typeof window !== 'undefined') {
