@@ -59,7 +59,7 @@ const Signup = () => {
             console.log(error.response.data)
         }
     }
-    return (<AuthLayout title="Projects" pageTitle="Projects">
+    return (<AuthLayout title="Projects" pageTitle="Projects" pageType="signup">
         <h1 className={styles["title"]}>Sign up</h1>
         <form className={styles["form"]} onSubmit={signup}>
             <div className={styles["input-field"]}>

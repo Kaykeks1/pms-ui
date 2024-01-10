@@ -40,7 +40,7 @@ const Signin = () => {
             console.log(error)
         }
     }
-    return (<AuthLayout title="Projects" pageTitle="Projects">
+    return (<AuthLayout title="Projects" pageTitle="Projects" pageType="signin">
         <h1 className={styles["title"]}>Sign in</h1>
         <form className={styles["form"]} onSubmit={signin}>
             <div className={styles["input-field"]}>
