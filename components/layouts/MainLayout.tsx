@@ -32,8 +32,9 @@ const MainLayout = ({ children, title = 'This is the default title', pageTitle }
     const hamburger = document.getElementById('menu-btn')
     window.addEventListener("resize", function() {
       if (window.innerWidth > 976) {
-        hamburger.classList.remove('open')
+        hamburger?.classList.remove('open')
         sidebar.classList.remove("active-mobile-sidebar");
+        if (!document.getElementById("overlay")) return
         document.getElementById("overlay").style.display = "none";
       }
     });
