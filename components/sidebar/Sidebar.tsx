@@ -27,29 +27,29 @@ const Sidebar = () => {
     <div className="flex flex-col h-9/10 justify-between">
         <div className="flex flex-col">
             <Link
-                className={`flex py-1 my-2 h-12 ml-8 w-full group hover:ml-0${router.pathname == "/overview" && ' ml-0 before:p-1 before:mr-6 before:rounded-tr-lg before:rounded-br-lg before:bg-violet-600'}`}
+                className={`flex my-2 h-16 pl-8 w-full group hover:ml-0${router.pathname == "/overview" && ' ml-0 before:-ml-8 before:p-1 before:mr-6 before:rounded-tr-lg before:rounded-br-lg before:bg-violet-600 bg-violet-50'}`}
                 href="/overview"
             >
-                <FontAwesomeIcon icon={faThLarge} className={`text-violet-400 self-center mr-3 ${router.pathname == "/overview" ? 'text-violet-600' : 'group-hover:text-violet-600'}`} />
-                <p className={`text-gray-500 self-center ${router.pathname == "/overview" ? 'text-violet-600' : 'group-hover:text-violet-600'}`}>Overview</p>
+                <FontAwesomeIcon icon={faThLarge} className={`self-center mr-3 ${router.pathname == "/overview" ? 'text-violet-600' : 'text-violet-400 group-hover:text-violet-600'}`} />
+                <p className={`self-center ${router.pathname == "/overview" ? 'text-violet-600' : 'text-gray-500 group-hover:text-violet-600'}`}>Overview</p>
             </Link>
             <Link
-                className={`flex py-1 my-2 h-12 ml-8 w-full group hover:ml-0${router.pathname == "/projects" && ' ml-0 before:p-1 before:mr-6 before:rounded-tr-lg before:rounded-br-lg before:bg-violet-600'}`}
+                className={`flex my-2 h-16 pl-8 w-full group hover:ml-0${router.pathname == "/projects" && ' ml-0 before:-ml-8 before:p-1 before:mr-6 before:rounded-tr-lg before:rounded-br-lg before:bg-violet-600 bg-violet-50'}`}
                 href="/projects"
             >
-                <FontAwesomeIcon icon={faTasks} className={`text-violet-400 self-center mr-3 ${router.pathname == "/projects" ? 'text-violet-600' : 'group-hover:text-violet-600'}`} />
-                <p className={`text-gray-500 self-center ${router.pathname == "/projects" ? 'text-violet-600' : 'group-hover:text-violet-600'}`}>Projects</p>
+                <FontAwesomeIcon icon={faTasks} className={`self-center mr-3 ${router.pathname == "/projects" ? 'text-violet-600' : 'text-violet-400 group-hover:text-violet-600'}`} />
+                <p className={`self-center ${router.pathname == "/projects" ? 'text-violet-600' : 'text-gray-500 group-hover:text-violet-600'}`}>Projects</p>
             </Link>
             <Link
-                className={`flex py-1 my-2 h-12 ml-8 w-full group hover:ml-0${router.pathname == "/team" && ' ml-0 before:p-1 before:mr-6 before:rounded-tr-lg before:rounded-br-lg before:bg-violet-600'}`}
+                className={`flex my-2 h-16 pl-8 w-full group hover:ml-0${router.pathname == "/team" && ' ml-0 before:-ml-8 before:p-1 before:mr-6 before:rounded-tr-lg before:rounded-br-lg before:bg-violet-600 bg-violet-50'}`}
                 href="/team"
             >
-                <FontAwesomeIcon icon={faUsers} className={`text-violet-400 self-center mr-3 ${router.pathname == "/team" ? 'text-violet-600' : 'group-hover:text-violet-600'}`} />
-                <p className={`text-gray-500 self-center ${router.pathname == "/team" ? 'text-violet-600' : 'group-hover:text-violet-600'}`}>Teams</p>
+                <FontAwesomeIcon icon={faUsers} className={`self-center mr-3 ${router.pathname == "/team" ? 'text-violet-600' : 'text-violet-400 group-hover:text-violet-600'}`} />
+                <p className={`self-center ${router.pathname == "/team" ? 'text-violet-600' : 'text-gray-500 group-hover:text-violet-600'}`}>Teams</p>
             </Link>
         </div>
         <div className="flex flex-col">
-            <div className="flex py-1 my-2 h-12 ml-8 w-full group cursor-pointer" onClick={logout}>
+            <div className="flex my-2 h-16 pl-8 w-full group cursor-pointer" onClick={logout}>
                 <FontAwesomeIcon icon={faSignOutAlt} className="text-violet-400 group-hover:text-violet-600 self-center mr-3" />
                 <p className="text-gray-500 group-hover:text-violet-600 self-center">Logout</p>
             </div>
