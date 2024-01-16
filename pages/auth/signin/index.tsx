@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Cookies from 'universal-cookie';
+import toast from "../../../utils/toast"
 
 const Signin = () => {
     const [form, setForm] = useState({ email: '', password: '' });
@@ -29,6 +30,7 @@ const Signin = () => {
             const response = await axios.post('http://127.0.0.1:3001/auth/signin', payload)
             setLoading(false)
             const data = response.data
+            toast("success", 'Login successful', undefined)
             router.push('/')
             localStorage.setItem('token', data.token)
             localStorage.setItem('user', JSON.stringify(data.user))
@@ -37,7 +39,7 @@ const Signin = () => {
             cookies.set('user', JSON.stringify(data.user), { path: '/' });
         } catch (error) {
             setLoading(false)
-            console.log(error)
+            toast("error", error.response.data.message, undefined)
         }
     }
     return (<AuthLayout title="Projects" pageTitle="Projects" pageType="signin">

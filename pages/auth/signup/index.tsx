@@ -4,6 +4,7 @@ import styles from '../../../styles/auth.module.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import toast from "../../../utils/toast"
 
 const Signup = () => {
     const [form, setForm] = useState({ name: '', firstName: '', lastName:'', email: '', password: '', confirmPassword: '' });
@@ -48,11 +49,12 @@ const Signup = () => {
                 const response = await axios.post('http://127.0.0.1:3001/auth/signup', payload)
                 setLoading(false)
                 const data = response.data
+                toast("success", 'Signup successful', undefined)
                 router.push('/')
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('user', JSON.stringify(data.user))
             } else {
-                alert('Password confirmation failed')
+                toast("error", 'Password confirmation failed', undefined)
             }
         } catch (error) {
             setLoading(false)
