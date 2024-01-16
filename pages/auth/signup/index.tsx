@@ -46,7 +46,7 @@ const Signup = () => {
             if (form.password === form.confirmPassword) {
                 delete payload.confirmPassword
                 setLoading(true)
-                const response = await axios.post('http://127.0.0.1:3001/auth/signup', payload)
+                const response = await axios.post(`${process.env.BASE_API_URL}/auth/signup`, payload)
                 setLoading(false)
                 const data = response.data
                 toast("success", 'Signup successful', undefined)

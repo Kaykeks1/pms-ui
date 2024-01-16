@@ -26,7 +26,7 @@ const Team = () => {
       const token = localStorage.getItem('token');
       const organization_id = user && JSON.parse(user).organizations[0].id
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/team/all`)
+      const response = await axios.get(`${process.env.BASE_API_URL}/organization/${organization_id}/team/all`)
       const data = response.data
       setTeam(data)
     } catch (e) {
@@ -44,7 +44,7 @@ const Team = () => {
       const token = localStorage.getItem('token');
       const organization_id = user && JSON.parse(user).organizations[0].id
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      const response = await axios.post(`http://127.0.0.1:3001/organization/${organization_id}/team/create`, payload)
+      const response = await axios.post(`${process.env.BASE_API_URL}/organization/${organization_id}/team/create`, payload)
       const data = response.data
     } catch (e) {
       console.log({ e })

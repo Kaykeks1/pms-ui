@@ -103,7 +103,7 @@ const Projects = () => {
       const organization_id = user && JSON.parse(user).organizations[0].id
       const payload = { status }
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      const response = await axios.patch(`http://127.0.0.1:3001/organization/${organization_id}/project/edit/${project_id}`, payload)
+      const response = await axios.patch(`${process.env.BASE_API_URL}/organization/${organization_id}/project/edit/${project_id}`, payload)
       const data = response.data
       return true
     } catch (e) {
@@ -119,7 +119,7 @@ const Projects = () => {
       const organization_id = user && JSON.parse(user).organizations[0].id
       const payload = { title: newProjectTitle }
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      const response = await axios.post(`http://127.0.0.1:3001/organization/${organization_id}/project/create`, payload)
+      const response = await axios.post(`${process.env.BASE_API_URL}/organization/${organization_id}/project/create`, payload)
       const data = response.data
     } catch (e) {
       console.log({ e })
@@ -131,7 +131,7 @@ const Projects = () => {
       const token = localStorage.getItem('token');
       const organization_id = user && JSON.parse(user).organizations[0].id
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/project/all`)
+      const response = await axios.get(`${process.env.BASE_API_URL}/organization/${organization_id}/project/all`)
       const data = response.data
       setProjectsFromAPI(data)
     } catch (e) {

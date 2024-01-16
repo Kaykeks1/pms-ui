@@ -140,7 +140,7 @@ const ProjectDetails = forwardRef(({  }, ref) => {
             const token = localStorage.getItem('token');
             const organization_id = user && JSON.parse(user).organizations[0].id
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/project/details/${project_id}`)
+            const response = await axios.get(`${process.env.BASE_API_URL}/organization/${organization_id}/project/details/${project_id}`)
             const data = response.data
             const project = {
                 ...projectDetails,
@@ -190,7 +190,7 @@ const ProjectDetails = forwardRef(({  }, ref) => {
             }
             delete payload.createdAt
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            const response = await axios.patch(`http://127.0.0.1:3001/organization/${organization_id}/project/edit/${projectId}`, payload)
+            const response = await axios.patch(`${process.env.BASE_API_URL}/organization/${organization_id}/project/edit/${projectId}`, payload)
             const data = response.data
             await getProject(projectId)
             return data

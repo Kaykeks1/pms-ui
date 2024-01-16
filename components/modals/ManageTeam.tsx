@@ -69,7 +69,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
             const token = localStorage.getItem('token');
             const organization_id = user && JSON.parse(user).organizations[0].id
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/task/project/${project_id}`)
+            const response = await axios.get(`${process.env.BASE_API_URL}/organization/${organization_id}/task/project/${project_id}`)
             const data = response.data
             setTasks(data)
             setInitialTasks(data)
@@ -84,7 +84,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
           const token = localStorage.getItem('token');
           const organization_id = user && JSON.parse(user).organizations[0].id
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/team/all`)
+          const response = await axios.get(`${process.env.BASE_API_URL}/organization/${organization_id}/team/all`)
           const data = response.data
           setTeam(data)
         } catch (e) {
@@ -100,7 +100,7 @@ const ManageTeam = forwardRef(({ }, ref) => {
           const payload = {
             tasksWithTeam: tasks.map(item => ({ id: item.id, team: item.teamMembers.map(i => ({ id: Number(i.id) })) }))
           }
-          await axios.patch(`http://127.0.0.1:3001/organization/${organization_id}/task/update-team`, payload)
+          await axios.patch(`${process.env.BASE_API_URL}/organization/${organization_id}/task/update-team`, payload)
           await getTasks(projectId)
         } catch (e) {
           console.log({ e })

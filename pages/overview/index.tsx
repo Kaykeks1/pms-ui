@@ -16,7 +16,7 @@ import formatDate from '../../utils/formatDate';
 //     const user = context.req.cookies['user']
 //     const organization_id = user && JSON.parse(user).organizations[0].id
 //     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-//     const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/statistics/overview`)
+//     const response = await axios.get(`${process.env.BASE_API_URL}/organization/${organization_id}/statistics/overview`)
 //     const data = response.data
 //     console.log({data})
 
@@ -84,7 +84,7 @@ const Overview = () => {
       const token = localStorage.getItem('token');
       const organization_id = user && JSON.parse(user).organizations[0].id
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      const response = await axios.get(`http://127.0.0.1:3001/organization/${organization_id}/statistics/overview`)
+      const response = await axios.get(`${process.env.BASE_API_URL}/organization/${organization_id}/statistics/overview`)
       const data = response.data
       const { percentageOfProjectsByStatus, mostDueProjects, taskTrend } = data
       setStatusChart(Object.keys(percentageOfProjectsByStatus).map(key => [key, percentageOfProjectsByStatus[key].value]))

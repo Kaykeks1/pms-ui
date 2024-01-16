@@ -27,7 +27,7 @@ const Signin = () => {
         try {
             const payload = { ...form}
             setLoading(true)
-            const response = await axios.post('http://127.0.0.1:3001/auth/signin', payload)
+            const response = await axios.post(`${process.env.BASE_API_URL}/auth/signin`, payload)
             setLoading(false)
             const data = response.data
             toast("success", 'Login successful', undefined)
