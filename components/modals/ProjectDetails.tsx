@@ -202,18 +202,18 @@ const ProjectDetails = forwardRef(({  }, ref) => {
     return (
         <div className="p-5">
             <div className='flex flex-col-reverse sm:flex-row justify-between mb-5'>
-                <input className="focus:outline-0 text-2xl smtext-3xl" type="text" name="title" placeholder='Empty' value={projectDetails.title} onChange={handleDetailsChange} />
+                <input className="focus:outline-0 text-2xl smtext-3xl flex-1 mr-5" type="text" name="title" placeholder='Empty' value={projectDetails.title} onChange={handleDetailsChange} />
                 <button disabled={!saveStatus} className={`${saveStatus ? 'bg-violet-600' : 'bg-violet-300'} text-white rounded-md p-2 mb-3 sm:mb-0`} onClick={saveDetails}>
                     SAVE
                     <FontAwesomeIcon icon={faSave} className='ml-2' />
                 </button>
             </div>
             <div className="flex flex-col sm:flex-row my-9">
-                <div className='flex items-center sm:w-3/12'>
-                    <FontAwesomeIcon icon={faAlignLeft} className='mr-3 text-gray-600 text-sm' />
+                <div className='flex sm:w-3/12'>
+                    <FontAwesomeIcon icon={faAlignLeft} className='mr-3 mt-1 text-gray-600 text-sm' />
                     <p className="text-gray-600 text-sm font-bold">Description</p>
                 </div>
-                <input className="focus:outline-0 mt-2 sm:mt-0" type="text" name="description" placeholder='Empty' value={projectDetails.description} onChange={handleDetailsChange} />
+                <textarea className="focus:outline-0 mt-2 sm:mt-0 flex-1" name="description" placeholder='Empty' value={projectDetails.description} onChange={handleDetailsChange} />
             </div>
             <div className="flex flex-col sm:flex-row my-9">
                 <div className='flex items-center sm:w-3/12'>
