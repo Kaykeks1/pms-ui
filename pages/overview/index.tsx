@@ -161,6 +161,7 @@ const Overview = () => {
             }
           </div>
           <div className={styles['pie-chart']}>
+            <p>Number of Projects</p>
             <div className={styles['pie-chart-container']}>
               <PieChart
                 data={statusChart}

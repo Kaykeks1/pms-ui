@@ -180,9 +180,11 @@ const Projects = () => {
                   <div className={styles['list-item-head']}>
                     <FontAwesomeIcon icon={faUserCog} className='cursor-pointer text-green' onClick={(e) => openTeamModal(e, project.id)} />
                     <p>{project.title}</p>
-                    <div className={`priority ${project.priority}-priority`}>{project.priority ? priorityOptions[project.priority] : '--'}</div>
                   </div>
                   <div className={styles['list-item-body']}>
+                    <div>
+                      <p>Priority: </p><p><span className={`priority ${project.priority}-priority`}>{project.priority ? priorityOptions[project.priority] : '--'}</span></p>
+                    </div>
                     <div>
                       <p>Effort: </p><p>{project.effort ? effortOptions[project.effort] : '--'}</p>
                     </div>
